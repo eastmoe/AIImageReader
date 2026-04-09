@@ -207,6 +207,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .fav-op { padding: 6px 9px; background: var(--surface); border: 1px solid var(--border); border-radius: 7px; font-size: 11px; font-weight: 800; color: var(--text); cursor: pointer; font-family: var(--sans); }
 .fav-op:hover { border-color: var(--primary); color: var(--primary-dark); }
 .fav-empty { padding: 16px 12px; border: 1.5px dashed var(--border); border-radius: 10px; text-align: center; color: var(--text-muted); font-size: 12px; }
+.fav-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.fav-field{display:flex;flex-direction:column;gap:5px}.fav-field label{font-size:10.5px;font-weight:800;color:var(--text-muted);text-transform:uppercase;letter-spacing:.3px}.fav-input,.fav-select{width:100%;padding:8px 10px;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:var(--sans)}.fav-input:focus,.fav-select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px hsla(var(--h),var(--s),var(--l),.16)}.fav-filter-meta{grid-column:1/-1;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;color:var(--text-muted)}.fav-reset{padding:4px 10px;background:var(--surface2);border:1px solid var(--border);border-radius:999px;font-size:11px;font-weight:800;color:var(--text-muted);cursor:pointer;font-family:var(--sans)}.fav-reset:hover{background:var(--primary);border-color:var(--primary);color:var(--c-on-p)}.fav-thumb-col{display:flex;flex-direction:column;gap:6px;align-items:center;flex-shrink:0}.fav-thumb{width:48px;height:48px;object-fit:cover;border-radius:10px;border:1.5px solid var(--border);background:var(--surface)}.fav-thumb-stack{display:flex;align-items:center}.fav-thumb-stack .fav-thumb{margin-right:-12px;box-shadow:0 0 0 2px var(--surface2)}.fav-thumb-more{min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--surface);border:1px solid var(--border);font-size:10px;font-weight:800;color:var(--text-muted);display:flex;align-items:center;justify-content:center}.toolbar-search{display:flex;align-items:center;gap:8px;min-width:min(100%,320px)}.node-search-input{min-width:180px;flex:1;padding:6px 10px;background:var(--surface);border:1.5px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;font-family:var(--sans)}.node-search-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px hsla(var(--h),var(--s),var(--l),.16)}.node-search-count{font-size:11px;font-weight:800;color:var(--text-muted);white-space:nowrap}.cfnode.match{border-color:var(--primary)!important;box-shadow:0 0 0 3px hsla(var(--h),var(--s),var(--l),.24),0 8px 32px hsla(var(--h),40%,20%,.24)!important}.cfnode.dim{opacity:.38;filter:saturate(.72)}
 @keyframes fade-in { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
 .sm-title { font-size: 11.5px; font-weight: 800; color: var(--text-muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 .theme-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
@@ -256,6 +257,51 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .badge.uk{background:var(--badge-uk-bg);color:var(--badge-uk-text)}
 .dl-btn{padding:6px 14px;background:var(--primary);color:var(--c-on-p);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:5px;flex-shrink:0;transition:background .2s}
 .dl-btn:hover{background:var(--primary-dark)}
+/* SUMMARY CARD */
+.summary-card{background:var(--surface);border:1.5px solid var(--border);border-radius:calc(var(--radius) + 3px);box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}
+.summary-head{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;padding:18px 20px;background:linear-gradient(135deg,hsla(var(--h),var(--s),var(--l),.14),hsla(var(--h),var(--s),var(--l),.05));border-bottom:1.5px solid var(--border);flex-wrap:wrap}
+.summary-eyebrow{font-size:11px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;color:var(--primary-dark);margin-bottom:4px}
+.summary-title{font-size:18px;font-weight:800;color:var(--text);line-height:1.35;word-break:break-word}
+.summary-sub{font-size:12px;color:var(--text-muted);margin-top:4px}
+.summary-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.summary-body{display:grid;grid-template-columns:minmax(240px,300px) 1fr;gap:18px;padding:20px}
+.summary-thumb-btn{position:relative;width:100%;aspect-ratio:1/1;background:var(--surface2);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center;box-shadow:inset 0 1px 0 rgba(255,255,255,.06);transition:transform .18s,border-color .18s,box-shadow .18s}
+.summary-thumb-btn:hover{transform:translateY(-1px);border-color:var(--primary);box-shadow:0 8px 24px hsla(var(--h),40%,20%,.14)}
+.summary-thumb-img{width:100%;height:100%;object-fit:contain;background:
+linear-gradient(135deg,hsla(var(--h),var(--s),var(--l),.06),transparent),
+repeating-linear-gradient(45deg,var(--surface2),var(--surface2) 10px,transparent 10px,transparent 20px)}
+.summary-thumb-img.cover{object-fit:cover}
+.summary-thumb-tip{position:absolute;left:10px;right:10px;bottom:10px;padding:7px 10px;border-radius:999px;background:rgba(0,0,0,.58);color:#fff;font-size:11px;font-weight:800;text-align:center;backdrop-filter:blur(8px)}
+.summary-main{min-width:0}
+.summary-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.summary-kv{background:var(--surface2);border:1px solid var(--border-light);border-radius:12px;padding:10px 12px;min-height:70px}
+.summary-k{font-size:10.5px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;color:var(--text-muted);margin-bottom:6px}
+.summary-v{font-size:13px;font-weight:700;color:var(--text);line-height:1.5;word-break:break-word}
+.summary-v.mono{font-family:var(--mono);font-size:12px}
+.summary-prompts{display:grid;grid-template-columns:1fr;gap:12px}
+.summary-prompt{background:var(--bg);border:1px solid var(--border-light);border-radius:14px;padding:14px 15px}
+.summary-prompt.neg{background:var(--neg-bg);border-color:var(--neg-border)}
+.summary-prompt .summary-k{margin-bottom:8px}
+.summary-prompt-text{font-size:12.5px;line-height:1.7;white-space:pre-wrap;word-break:break-word;color:var(--text)}
+.summary-prompt.neg .summary-prompt-text{color:var(--neg-text)}
+.summary-empty{color:var(--text-muted);font-weight:700}
+.img-modal{position:fixed;inset:0;background:rgba(0,0,0,.72);display:none;align-items:center;justify-content:center;padding:24px;z-index:1200;backdrop-filter:blur(8px)}
+.img-modal.on{display:flex}
+.img-modal-dialog{position:relative;max-width:min(92vw,1200px);max-height:92vh;display:flex;align-items:center;justify-content:center}
+.img-modal-img{max-width:92vw;max-height:92vh;display:block;border-radius:16px;box-shadow:0 18px 60px rgba(0,0,0,.45);background:#000}
+.img-modal-close{position:absolute;top:-14px;right:-14px;width:42px;height:42px;border:none;border-radius:999px;background:var(--surface);color:var(--text);font-size:20px;font-weight:800;cursor:pointer;box-shadow:var(--shadow-lg)}
+.img-modal-cap{position:absolute;left:16px;right:16px;bottom:16px;padding:10px 12px;border-radius:12px;background:rgba(0,0,0,.58);color:#fff;font-size:12px;font-weight:700;text-align:center}
+@media (max-width: 860px){
+  .summary-body{grid-template-columns:1fr}
+  .summary-thumb-btn{max-width:420px}
+}
+@media (max-width: 640px){
+  .summary-grid{grid-template-columns:1fr}
+  .summary-head{padding:16px}
+  .summary-body{padding:16px}
+  .summary-title{font-size:16px}
+}
+
 
 /* SD WEBUI */
 .card{background:var(--surface);border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
@@ -416,7 +462,7 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .cmp-stack-type.sd{background:#2563eb}.cmp-stack-type.nai{background:#9333ea}.cmp-stack-type.mj{background:#6d28d9}.cmp-stack-type.cf{background:#16a34a}.cmp-stack-type.uk{background:#7e22ce}
 .thumb-ph{display:flex;align-items:center;justify-content:center;background:var(--surface2);color:var(--text-muted);font-size:20px}
 
-@media(max-width:768px){.main{padding:16px 14px}.pgrid{grid-template-columns:1fr}.viewport{height:480px}.header h1{font-size:17px}.cmp-val-wrap,.cmp-val{max-width:180px}.fav-menu{width:min(92vw,340px)}}
+@media(max-width:768px){.main{padding:16px 14px}.pgrid{grid-template-columns:1fr}.viewport{height:480px}.header h1{font-size:17px}.cmp-val-wrap,.cmp-val{max-width:180px}.fav-menu{width:min(92vw,340px)}.fav-filters{grid-template-columns:1fr}.toolbar-search{width:100%;min-width:100%;order:10}.node-search-input{min-width:0}.node-search-count{width:100%}}
 @media(max-width:768px) and (orientation:portrait){.cmp-scroll{display:none}.cmp-mobile-stack{display:block}}
 @media(min-width:769px), (max-width:768px) and (orientation:landscape){.cmp-mobile-stack{display:none}}
 </style>
@@ -442,6 +488,17 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
           <button class="fav-act" type="button" onclick="saveCurrentFavorite()">⭐ 收藏当前结果</button>
           <button class="fav-act" type="button" onclick="exportFavorites()">⬇ 导出收藏</button>
           <button class="fav-act" type="button" onclick="triggerImportFavorites()">⬆ 导入收藏</button>
+        </div>
+      </div>
+      <div>
+        <div class="sm-title">收藏搜索 / 筛选</div>
+        <div class="fav-filters">
+          <div class="fav-field"><label for="favFilterModel">模型</label><input class="fav-input" id="favFilterModel" type="text" placeholder="如 checkpoint / model"></div>
+          <div class="fav-field"><label for="favFilterResolution">分辨率</label><input class="fav-input" id="favFilterResolution" type="text" placeholder="如 1024x1024"></div>
+          <div class="fav-field" style="grid-column:1/-1"><label for="favFilterPrompt">提示词</label><input class="fav-input" id="favFilterPrompt" type="text" placeholder="按正向提示词关键词筛选"></div>
+          <div class="fav-field"><label for="favFilterSource">来源</label><select class="fav-select" id="favFilterSource"><option value="">全部来源</option><option value="sdwebui">SD WebUI</option><option value="comfyui">ComfyUI</option><option value="novelai">NovelAI</option><option value="midjourney">Midjourney</option><option value="unknown">未知</option></select></div>
+          <div class="fav-field"><label for="favFilterKeyword">全文关键词</label><input class="fav-input" id="favFilterKeyword" type="text" placeholder="文件名 / 参数 / 值"></div>
+          <div class="fav-filter-meta"><span id="favFilterStats">0 / 0 条</span><button class="fav-reset" type="button" onclick="resetFavoriteFilters()">重置筛选</button></div>
         </div>
       </div>
       <div>
@@ -505,11 +562,590 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 </div>
 <div class="toast" id="toast">✓ 已复制到剪贴板</div>
 
+<div class="img-modal" id="imgModal" onclick="closeImageModal(event)">
+  <div class="img-modal-dialog">
+    <button class="img-modal-close" type="button" aria-label="关闭" onclick="closeImageModal(event)">×</button>
+    <img class="img-modal-img" id="imgModalImg" alt="预览图">
+    <div class="img-modal-cap" id="imgModalCap"></div>
+  </div>
+</div>
+
 <script>
 // ─── Global State ─────────────────────────────────────────────────────────────
 const CS={scale:1,ox:0,oy:0,panning:false,dragNode:null,nodes:[],links:{},lineStyle:'bezier',vp:null,world:null,svg:null};
 const FAVORITE_KEY='awp_favorites_v1';
+const FAVORITE_THUMB_SIZE=64;
 let currentViewData=null;
+let currentSummaryData=null;
+let currentSummaryEntry=null;
+
+function getTypeLabel(type){
+  return {sdwebui:'SD WebUI',comfyui:'ComfyUI',novelai:'NovelAI',midjourney:'Midjourney',unknown:'未知格式'}[type]||'未知格式';
+}
+function getTypeClass(type){
+  return {sdwebui:'sd',comfyui:'cf',novelai:'nai',midjourney:'mj',unknown:'uk'}[type]||'uk';
+}
+function normalizeMetaKey(k){
+  return String(k||'').toLowerCase().replace(/[\s_\-:./()]+/g,'');
+}
+function summaryShortText(v, maxLen=220){
+  const s=String(v==null?'':v).trim();
+  if(!s) return '';
+  return s.length>maxLen ? s.slice(0,maxLen-1)+'…' : s;
+}
+function getPreviewImageSrc(entry){
+  return entry?.imgURL || entry?.thumb64 || getEntryThumb(entry);
+}
+function getSummaryParamItems(type, parsed){
+  const items=[];
+  if(type==='comfyui'){
+    for(const node of (parsed?.nodes||[])){
+      for(const p of (node.params||[])){
+        items.push({k:p.k, v:String(p.v), nodeTitle:node.title||node.type||'', nodeType:node.type||''});
+      }
+    }
+  } else {
+    for(const p of ([...(parsed?.params||[]), ...(parsed?.pluginParams||[])])){
+      items.push({k:p.k, v:String(p.v)});
+    }
+  }
+  return items;
+}
+function findSummaryValue(items, candidates){
+  const arr=Array.isArray(candidates)?candidates:[candidates];
+  const exact=arr.map(normalizeMetaKey);
+  for(const cand of exact){
+    const hit=items.find(item=>normalizeMetaKey(item.k)===cand);
+    if(hit && String(hit.v).trim()) return String(hit.v).trim();
+  }
+  for(const cand of exact){
+    const hit=items.find(item=>normalizeMetaKey(item.k).includes(cand) || cand.includes(normalizeMetaKey(item.k)));
+    if(hit && String(hit.v).trim()) return String(hit.v).trim();
+  }
+  return '';
+}
+function deriveComfyPrompts(parsed){
+  let pos='',neg='';
+  const textNodes=(parsed?.nodes||[]).filter(node=>(node.params||[]).some(p=>normalizeMetaKey(p.k)==='text'));
+  for(const node of textNodes){
+    const textParam=(node.params||[]).find(p=>normalizeMetaKey(p.k)==='text');
+    const label=`${node.title||''} ${node.type||''}`.toLowerCase();
+    const val=String(textParam?.v||'').trim();
+    if(!val) continue;
+    if(/negative/.test(label)){ if(!neg) neg=val; }
+    else if(/positive|prompt/.test(label)){ if(!pos) pos=val; }
+    else if(!pos) pos=val;
+    else if(!neg && val!==pos) neg=val;
+  }
+  return {pos,neg};
+}
+function deriveComfyModel(parsed){
+  for(const node of (parsed?.nodes||[])){
+    const label=`${node.title||''} ${node.type||''}`.toLowerCase();
+    if(/checkpoint|loader|model/.test(label)){
+      const cand=(node.params||[]).find(p=>/ckpt|checkpoint|model|unet_name/i.test(p.k));
+      if(cand && String(cand.v).trim()) return String(cand.v).trim();
+    }
+  }
+  return '';
+}
+function normalizeResolutionString(size, width, height){
+  const s=String(size||'').trim();
+  if(s) return s.replace(/\s*x\s*/ig,' × ');
+  const w=String(width||'').trim();
+  const h=String(height||'').trim();
+  if(w && h) return `${w} × ${h}`;
+  return '';
+}
+function buildSummaryData(entry){
+  const meta=entry?.meta||{};
+  const type=entry?.type||detectType(meta);
+  const parsed=entry?.parsed||parseByType(type, meta)||{};
+  const items=getSummaryParamItems(type, parsed);
+
+  let prompt=String(parsed?.pos||'').trim();
+  let negative=String(parsed?.neg||'').trim();
+  if(type==='comfyui'){
+    const cp=deriveComfyPrompts(parsed);
+    if(!prompt) prompt=cp.pos||'';
+    if(!negative) negative=cp.neg||'';
+  }
+
+  let model=findSummaryValue(items,['Model','Model Name','Checkpoint','Checkpoint Name','ckpt_name']);
+  if(type==='comfyui' && !model) model=deriveComfyModel(parsed);
+  if(type==='midjourney' && !model) model='Midjourney';
+  if(type==='novelai' && !model) model='NovelAI';
+  if(type==='comfyui' && !model) model='ComfyUI Workflow';
+
+  let modelVersion=findSummaryValue(items,['Version','Model hash','Checkpoint hash','Hash','Creator Tool','Model Version']);
+  if(type==='midjourney' && !modelVersion) modelVersion=findSummaryValue(items,['Aspect Ratio','Version','Stylize']);
+
+  const resolution=normalizeResolutionString(
+    findSummaryValue(items,['Size','Resolution']),
+    findSummaryValue(items,['Width','Image Width','width']),
+    findSummaryValue(items,['Height','Image Height','height'])
+  );
+
+  const steps=findSummaryValue(items,['Steps','steps']);
+  const sampler=findSummaryValue(items,['Sampler','sampler_name','Scheduler']);
+  const cfg=findSummaryValue(items,['CFG Scale','cfg','scale']);
+  const seed=findSummaryValue(items,['Seed','seed']);
+  const source=getTypeLabel(type);
+
+  return {
+    fileName: entry?.file?.name || '收藏元数据',
+    type, source,
+    model: model || '',
+    modelVersion: modelVersion || '',
+    resolution: resolution || '',
+    steps: steps || '',
+    sampler: sampler || '',
+    cfg: cfg || '',
+    seed: seed || '',
+    prompt: prompt || '',
+    negative: negative || '',
+    previewSrc: getPreviewImageSrc(entry)
+  };
+}
+function makeSummaryCard(entry){
+  const s=buildSummaryData(entry);
+  currentSummaryData=s;
+  currentSummaryEntry=entry;
+  const el=document.createElement('div');
+  el.className='summary-card';
+  el.id='summaryCard';
+  el.innerHTML=`
+    <div class="summary-head">
+      <div>
+        <div class="summary-eyebrow">统一摘要卡 · ${esc(s.source)}</div>
+        <div class="summary-title">${esc(s.fileName)}</div>
+        <div class="summary-sub">适合快速浏览通用参数，也可一键导出为分享截图</div>
+      </div>
+      <div class="summary-actions">
+        <span class="badge ${getTypeClass(s.type)}">${esc(s.source)}</span>
+        <button class="dl-btn summary-export-btn" type="button">📸 保存摘要截图</button>
+      </div>
+    </div>
+    <div class="summary-body">
+      <button class="summary-thumb-btn summary-open-btn" type="button" aria-label="放大预览图片">
+        <img class="summary-thumb-img" src="${esc(s.previewSrc)}" alt="${esc(s.fileName)}">
+      </button>
+      <div class="summary-main">
+        <div class="summary-grid">
+          <div class="summary-kv"><div class="summary-k">模型</div><div class="summary-v">${s.model?esc(s.model):'<span class="summary-empty">—</span>'}</div></div>
+          <div class="summary-kv"><div class="summary-k">模型版本 / Hash</div><div class="summary-v mono">${s.modelVersion?esc(s.modelVersion):'<span class="summary-empty">—</span>'}</div></div>
+          <div class="summary-kv"><div class="summary-k">分辨率</div><div class="summary-v mono" data-summary-field="resolution">${s.resolution?esc(s.resolution):'—'}</div></div>
+          <div class="summary-kv"><div class="summary-k">步数</div><div class="summary-v mono">${s.steps?esc(s.steps):'<span class="summary-empty">—</span>'}</div></div>
+          <div class="summary-kv"><div class="summary-k">采样器</div><div class="summary-v">${s.sampler?esc(s.sampler):'<span class="summary-empty">—</span>'}</div></div>
+          <div class="summary-kv"><div class="summary-k">CFG / Scale</div><div class="summary-v mono">${s.cfg?esc(s.cfg):'<span class="summary-empty">—</span>'}</div></div>
+          <div class="summary-kv"><div class="summary-k">Seed</div><div class="summary-v mono">${s.seed?esc(s.seed):'<span class="summary-empty">—</span>'}</div></div>
+          <div class="summary-kv"><div class="summary-k">来源</div><div class="summary-v">${esc(s.source)}</div></div>
+        </div>
+        <div class="summary-prompts">
+          <div class="summary-prompt">
+            <div class="summary-k">正向提示词</div>
+            <div class="summary-prompt-text">${s.prompt?esc(s.prompt):'<span class="summary-empty">—</span>'}</div>
+          </div>
+          <div class="summary-prompt neg">
+            <div class="summary-k">反向提示词</div>
+            <div class="summary-prompt-text">${s.negative?esc(s.negative):'<span class="summary-empty">—</span>'}</div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  const exportBtn=el.querySelector('.summary-export-btn');
+  if(exportBtn){
+    exportBtn.addEventListener('click', async (ev)=>{
+      ev.preventDefault();
+      ev.stopPropagation();
+      await exportSummaryCardPNG();
+    });
+  }
+  const openBtn=el.querySelector('.summary-open-btn');
+  if(openBtn){
+    openBtn.addEventListener('click', (ev)=>{
+      ev.preventDefault();
+      ev.stopPropagation();
+      openCurrentSummaryImage();
+    });
+  }
+  return el;
+}
+
+function hydrateSummaryResolutionFromImage(card, entry){
+  if(!card || !currentSummaryData || currentSummaryData.resolution) return;
+  const src=getPreviewImageSrc(entry);
+  if(!src) return;
+  const img=new Image();
+  img.onload=()=>{
+    const res=`${img.naturalWidth} × ${img.naturalHeight}`;
+    currentSummaryData.resolution=res;
+    const target=card.querySelector('[data-summary-field="resolution"]');
+    if(target) target.textContent=res;
+  };
+  img.src=src;
+}
+function openCurrentSummaryImage(){
+  const entry=currentSummaryEntry || currentViewData?.entries?.[0];
+  const src=getPreviewImageSrc(entry);
+  if(!src){showToast('⚠️ 当前没有可预览的图片');return;}
+  openImageModal(src, entry?.file?.name || '预览图');
+}
+function openImageModal(src, caption=''){
+  const modal=document.getElementById('imgModal');
+  const img=document.getElementById('imgModalImg');
+  const cap=document.getElementById('imgModalCap');
+  if(!modal || !img || !src) return;
+  img.src=src;
+  cap.textContent=caption || '';
+  modal.classList.add('on');
+  document.body.style.overflow='hidden';
+}
+function closeImageModal(ev){
+  if(ev){
+    if(ev.target.closest('.img-modal-dialog') && !ev.target.classList.contains('img-modal-close') && ev.target.id!=='imgModal') return;
+    ev.stopPropagation?.();
+  }
+  const modal=document.getElementById('imgModal');
+  const img=document.getElementById('imgModalImg');
+  if(modal) modal.classList.remove('on');
+  if(img) img.removeAttribute('src');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape'){
+    const modal=document.getElementById('imgModal');
+    if(modal?.classList.contains('on')) closeImageModal();
+  }
+});
+function roundedRect(ctx,x,y,w,h,r){
+  const rr=Math.min(r,w/2,h/2);
+  ctx.beginPath();
+  ctx.moveTo(x+rr,y);
+  ctx.arcTo(x+w,y,x+w,y+h,rr);
+  ctx.arcTo(x+w,y+h,x,y+h,rr);
+  ctx.arcTo(x,y+h,x,y,rr);
+  ctx.arcTo(x,y,x+w,y,rr);
+  ctx.closePath();
+}
+function drawWrappedText(ctx,text,x,y,maxWidth,lineHeight,maxLines){
+  const raw=String(text||'').replace(/\r/g,'');
+  if(!raw.trim()){
+    ctx.fillText('—',x,y);
+    return {lines:['—'],height:lineHeight};
+  }
+  const paragraphs=raw.split('\n');
+  const lines=[];
+  for(const para of paragraphs){
+    let line='';
+    for(const ch of para){
+      const test=line+ch;
+      if(ctx.measureText(test).width>maxWidth && line){
+        lines.push(line);
+        line=ch;
+        if(maxLines && lines.length>=maxLines) break;
+      } else line=test;
+    }
+    if(maxLines && lines.length>=maxLines) break;
+    lines.push(line || ' ');
+    if(maxLines && lines.length>=maxLines) break;
+  }
+  let finalLines=lines.filter((_,idx)=>!maxLines || idx<maxLines);
+  if(maxLines && lines.length>maxLines){
+    const last=finalLines[finalLines.length-1]||'';
+    finalLines[finalLines.length-1]=(last.length>1?last.slice(0,-1):'')+'…';
+  }
+  finalLines.forEach((ln,i)=>ctx.fillText(ln,x,y+i*lineHeight));
+  return {lines:finalLines,height:finalLines.length*lineHeight};
+}
+function downloadBlob(blob, filename){
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url), 1200);
+}
+function loadCanvasImage(src){
+  return new Promise(resolve=>{
+    if(!src){resolve(null);return;}
+    const img=new Image();
+    try{ img.crossOrigin='anonymous'; }catch(_){}
+    img.decoding='async';
+    img.onload=()=>resolve(img);
+    img.onerror=()=>resolve(null);
+    img.src=src;
+  });
+}
+async function exportSummaryCardPNG(){
+  const entry=currentSummaryEntry || currentViewData?.entries?.[0];
+  if(!entry){showToast('⚠️ 当前没有可导出的摘要');return;}
+  const s=currentSummaryData || buildSummaryData(entry);
+  const css=getComputedStyle(document.body);
+  const bg=css.getPropertyValue('--bg').trim() || '#f6f7f8';
+  const paper='#fffaf0';
+  const ink='#2b241f';
+  const softInk='rgba(43,36,31,0.62)';
+  const primary=css.getPropertyValue('--primary').trim() || '#16a34a';
+  const muted=css.getPropertyValue('--text-muted').trim() || '#6b7280';
+  const negInk=css.getPropertyValue('--neg-text').trim() || '#a33a3a';
+
+  const W=1400, H=980, scale=2;
+  const canvas=document.createElement('canvas');
+  canvas.width=W*scale;
+  canvas.height=H*scale;
+  const ctx=canvas.getContext('2d');
+  if(!ctx){showToast('⚠️ 当前浏览器不支持截图导出');return;}
+  ctx.scale(scale,scale);
+
+  function rand(seed){ return (Math.sin(seed*999.13)+1)/2; }
+  function sketchRoundRect(x,y,w,h,r,seed=1){
+    const rr=Math.min(r,w/2,h/2);
+    for(let i=0;i<2;i++){
+      const n=i*0.9;
+      ctx.beginPath();
+      ctx.moveTo(x+rr+n,y+n);
+      ctx.arcTo(x+w+n,y+n,x+w+n,y+h+n,rr);
+      ctx.arcTo(x+w+n,y+h+n,x+n,y+h+n,rr);
+      ctx.arcTo(x+n,y+h+n,x+n,y+n,rr);
+      ctx.arcTo(x+n,y+n,x+w+n,y+n,rr);
+      ctx.closePath();
+      ctx.stroke();
+    }
+    // tiny wobble marks
+    for(let k=0;k<10;k++){
+      const px=x+20+rand(seed+k)*(w-40);
+      const py=y+10+rand(seed+k+50)*(h-20);
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(px+3+rand(seed+k+90)*4, py+1+rand(seed+k+120)*3);
+      ctx.stroke();
+    }
+  }
+  function drawWrappedTextSketch(text,x,y,maxWidth,lineHeight,maxLines,font,fillStyle){
+    ctx.font=font;
+    ctx.fillStyle=fillStyle;
+    return drawWrappedText(ctx, text, x, y, maxWidth, lineHeight, maxLines);
+  }
+  function cardField(x,y,w,h,label,value,mono=false,seed=1){
+    ctx.save();
+    ctx.fillStyle='rgba(255,255,255,0.45)';
+    ctx.strokeStyle='rgba(43,36,31,0.32)';
+    ctx.lineWidth=1.7;
+    roundedRect(ctx,x,y,w,h,18);
+    ctx.fill();
+    sketchRoundRect(x,y,w,h,18,seed);
+    ctx.fillStyle=softInk;
+    ctx.font='800 15px Nunito, sans-serif';
+    ctx.fillText(label,x+18,y+28);
+    drawWrappedTextSketch(summaryShortText(value || '—', 90), x+18, y+58, w-34, 23, 2, mono ? '700 18px "JetBrains Mono", monospace' : '700 19px Nunito, sans-serif', ink);
+    ctx.restore();
+  }
+
+  // paper background
+  ctx.fillStyle=bg;
+  ctx.fillRect(0,0,W,H);
+  const bgG=ctx.createRadialGradient(200,120,0,200,120,480);
+  bgG.addColorStop(0, primary+'18');
+  bgG.addColorStop(1, bg);
+  ctx.fillStyle=bgG;
+  ctx.fillRect(0,0,W,H);
+
+  const cardX=52, cardY=40, cardW=W-104, cardH=H-80;
+  ctx.save();
+  ctx.translate(cardX, cardY);
+  ctx.rotate(-0.008);
+  ctx.fillStyle=paper;
+  ctx.strokeStyle='rgba(43,36,31,0.72)';
+  ctx.lineWidth=2.1;
+  roundedRect(ctx,0,0,cardW,cardH,28);
+  ctx.fill();
+  sketchRoundRect(0,0,cardW,cardH,28,8);
+
+  // paper grain
+  for(let i=0;i<1800;i++){
+    const px=rand(i+1)*cardW;
+    const py=rand(i+101)*cardH;
+    const a=0.03 + rand(i+400)*0.03;
+    ctx.fillStyle=`rgba(80,68,54,${a})`;
+    ctx.fillRect(px,py,1,1);
+  }
+
+  // tapes
+  ctx.save();
+  ctx.globalAlpha=0.65;
+  ctx.fillStyle='rgba(255,241,181,0.72)';
+  ctx.fillRect(38,18,160,36);
+  ctx.fillRect(cardW-210,18,170,36);
+  ctx.restore();
+
+  // doodle accents
+  ctx.strokeStyle=primary;
+  ctx.lineWidth=3;
+  ctx.beginPath();
+  ctx.moveTo(46,98); ctx.quadraticCurveTo(80,60,122,96); ctx.quadraticCurveTo(150,124,178,96);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cardW-84,96,22,0,Math.PI*2);
+  ctx.stroke();
+
+  ctx.fillStyle=primary;
+  ctx.font='900 18px Nunito, sans-serif';
+  ctx.fillText('Unified Summary Card', 54, 78);
+  ctx.fillStyle=ink;
+  ctx.font='900 34px Nunito, sans-serif';
+  drawWrappedText(ctx, summaryShortText(s.fileName, 72), 54, 124, cardW-320, 36, 1);
+  ctx.fillStyle=softInk;
+  ctx.font='700 18px Nunito, sans-serif';
+  ctx.fillText(`${s.source || 'Unknown'} · 手绘分享卡`, 54, 154);
+
+  // badge
+  ctx.save();
+  ctx.translate(cardW-200,58);
+  ctx.rotate(0.03);
+  ctx.fillStyle=primary;
+  roundedRect(ctx,0,0,132,42,20);
+  ctx.fill();
+  ctx.strokeStyle='rgba(43,36,31,0.25)';
+  sketchRoundRect(0,0,132,42,20,26);
+  ctx.fillStyle='#fff';
+  ctx.textAlign='center';
+  ctx.font='800 17px Nunito, sans-serif';
+  ctx.fillText(s.source || 'IMAGE', 66, 27);
+  ctx.restore();
+  ctx.textAlign='left';
+
+  const imgX=54, imgY=188, imgBox=314;
+  ctx.fillStyle='rgba(255,255,255,0.52)';
+  ctx.strokeStyle='rgba(43,36,31,0.42)';
+  ctx.lineWidth=1.9;
+  roundedRect(ctx,imgX,imgY,imgBox,imgBox,24);
+  ctx.fill();
+  sketchRoundRect(imgX,imgY,imgBox,imgBox,24,46);
+
+  const img=await loadCanvasImage(s.previewSrc);
+  if(img){
+    const iw=img.naturalWidth||img.width, ih=img.naturalHeight||img.height;
+    const scaleFit=Math.min((imgBox-22)/iw, (imgBox-22)/ih);
+    const dw=iw*scaleFit, dh=ih*scaleFit;
+    const dx=imgX+(imgBox-dw)/2, dy=imgY+(imgBox-dh)/2;
+    ctx.save();
+    roundedRect(ctx,imgX+10,imgY+10,imgBox-20,imgBox-20,18);
+    ctx.clip();
+    ctx.drawImage(img, dx, dy, dw, dh);
+    ctx.restore();
+  } else {
+    ctx.fillStyle=softInk;
+    ctx.font='700 18px Nunito, sans-serif';
+    ctx.fillText('无可用预览图', imgX+92, imgY+165);
+  }
+  ctx.strokeStyle='rgba(43,36,31,0.28)';
+  ctx.lineWidth=1.5;
+  ctx.beginPath();
+  ctx.moveTo(imgX+30,imgY+imgBox+20);
+  ctx.lineTo(imgX+imgBox-30,imgY+imgBox+20);
+  ctx.stroke();
+
+  const rightX=imgX+imgBox+28, topY=imgY;
+  const fieldW=418, fieldH=94, gap=14;
+  const fields=[
+    ['模型', s.model || '—', false],
+    ['模型版本 / Hash', s.modelVersion || '—', true],
+    ['分辨率', s.resolution || '—', true],
+    ['步数', s.steps || '—', true],
+    ['采样器', s.sampler || '—', false],
+    ['CFG / Scale', s.cfg || '—', true],
+    ['Seed', s.seed || '—', true],
+    ['来源', s.source || '—', false]
+  ];
+  fields.forEach((f, i)=>{
+    const col=i%2, row=Math.floor(i/2);
+    cardField(rightX + col*(fieldW+gap), topY + row*(fieldH+gap), fieldW, fieldH, f[0], f[1], f[2], 60+i);
+  });
+
+  const promptX=imgX, promptY=imgY+imgBox+42, promptW=cardW-108, promptH=cardH-promptY-94;
+  const boxGap=16;
+  const boxH=(promptH-boxGap)/2;
+  const prompts=[
+    {label:'正向提示词', value:s.prompt || '—', tone:'normal'},
+    {label:'反向提示词', value:s.negative || '—', tone:'neg'}
+  ];
+  prompts.forEach((blk, idx)=>{
+    const x=promptX, y=promptY + idx*(boxH+boxGap);
+    ctx.fillStyle=blk.tone==='neg' ? 'rgba(222,145,145,0.12)' : 'rgba(255,255,255,0.46)';
+    ctx.strokeStyle='rgba(43,36,31,0.34)';
+    ctx.lineWidth=1.8;
+    roundedRect(ctx,x,y,promptW,boxH,24);
+    ctx.fill();
+    sketchRoundRect(x,y,promptW,boxH,24,110+idx*12);
+
+    ctx.fillStyle=blk.tone==='neg' ? negInk : primary;
+    ctx.font='900 17px Nunito, sans-serif';
+    ctx.fillText(blk.label, x+20, y+30);
+
+    // underline doodle
+    ctx.strokeStyle=blk.tone==='neg' ? negInk : primary;
+    ctx.lineWidth=2.4;
+    ctx.beginPath();
+    ctx.moveTo(x+20, y+38);
+    ctx.quadraticCurveTo(x+120, y+44, x+180, y+39);
+    ctx.stroke();
+
+    drawWrappedTextSketch(summaryShortText(blk.value, 1000), x+20, y+62, promptW-40, 24, 6, '600 18px Nunito, sans-serif', ink);
+  });
+
+  ctx.fillStyle=softInk;
+  ctx.font='700 15px "JetBrains Mono", monospace';
+  ctx.fillText(`Generated at ${new Date().toLocaleString()}`, 54, cardH-28);
+  ctx.textAlign='right';
+  ctx.fillStyle=primary;
+  ctx.font='800 17px Nunito, sans-serif';
+  ctx.fillText('Powered by flow.ete.moe', cardW-54, cardH-28);
+  ctx.textAlign='left';
+
+  ctx.restore();
+
+  try{
+    const outName=(String(s.fileName||'summary').replace(/\.[^.]+$/,'')||'summary')+'_summary_card.png';
+    if(canvas.toBlob){
+      canvas.toBlob(blob=>{
+        if(!blob){
+          try{
+            const a=document.createElement('a');
+            a.href=canvas.toDataURL('image/png');
+            a.download=outName;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            showToast('✓ 摘要截图已导出');
+          }catch(err){
+            console.error(err);
+            showToast('⚠️ 摘要截图导出失败');
+          }
+          return;
+        }
+        downloadBlob(blob, outName);
+        showToast('✓ 摘要截图已导出');
+      }, 'image/png');
+    } else {
+      const a=document.createElement('a');
+      a.href=canvas.toDataURL('image/png');
+      a.download=outName;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      showToast('✓ 摘要截图已导出');
+    }
+  }catch(err){
+    console.error(err);
+    showToast('⚠️ 摘要截图导出失败');
+  }
+}
+window.exportSummaryCardPNG = exportSummaryCardPNG;
+window.openCurrentSummaryImage = openCurrentSummaryImage;
+
 
 // ─── Theme & Mode Logic ───────────────────────────────────────────────────────
 function initThemeMode() {
@@ -647,7 +1283,7 @@ function getPlaceholderThumb(label='META'){
   return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
 }
 function getEntryThumb(entry){
-  return entry && entry.imgURL ? entry.imgURL : getPlaceholderThumb((entry?.type||'META').slice(0,2).toUpperCase());
+  return entry && (entry.imgURL || entry.thumb64) ? (entry.imgURL || entry.thumb64) : getPlaceholderThumb((entry?.type||'META').slice(0,2).toUpperCase());
 }
 function splitSmartCommaSegments(str){
   const out=[];let buf='';let quote='';let depth=0;
@@ -1201,16 +1837,18 @@ function autoLayout(nodes,links){
 
 // ─── ComfyUI Canvas ───────────────────────────────────────────────────────────
 function renderCF(parsed,el){
-  CS.nodes=parsed.nodes;CS.links=parsed.links;CS.scale=1;CS.ox=0;CS.oy=0;
+  CS.nodes=parsed.nodes;CS.links=parsed.links;CS.scale=1;CS.ox=0;CS.oy=0;CS.nodeFilter='';
   const nc=parsed.nodes.length,lc=Object.keys(parsed.links).length;
-  el.innerHTML=`<div class="cf-card"><div class="toolbar"><span class="tlbl">视图</span><button class="tbtn" onclick="resetView()">🔄 重置</button><button class="tbtn" onclick="fitView()">⊞ 适应</button><div class="tsep"></div><span class="tlbl">连线</span><button class="tbtn act" id="btn-bezier" onclick="setLine('bezier')">曲线</button><button class="tbtn" id="btn-straight" onclick="setLine('straight')">直线</button><button class="tbtn" id="btn-step" onclick="setLine('step')">折线</button><div class="tsep"></div><span class="node-count">${nc} 节点 · ${lc} 连接</span><span class="tinfo" id="zi">缩放 100%</span></div><div class="viewport" id="vp"><div class="world" id="world"><svg class="conn-svg" id="csvg"></svg></div></div></div>`;
+  el.innerHTML=`<div class="cf-card"><div class="toolbar"><span class="tlbl">视图</span><button class="tbtn" onclick="resetView()">🔄 重置</button><button class="tbtn" onclick="fitView()">⊞ 适应</button><div class="tsep"></div><span class="tlbl">连线</span><button class="tbtn act" id="btn-bezier" onclick="setLine('bezier')">曲线</button><button class="tbtn" id="btn-straight" onclick="setLine('straight')">直线</button><button class="tbtn" id="btn-step" onclick="setLine('step')">折线</button><div class="tsep"></div><div class="toolbar-search"><input class="node-search-input" id="nodeSearchInput" type="search" placeholder="筛选节点参数 / 参数值 / 节点名"><button class="tbtn" type="button" onclick="clearNodeFilter()">清空</button><span class="node-search-count" id="nodeFilterCount">未筛选</span></div><span class="node-count">${nc} 节点 · ${lc} 连接</span><span class="tinfo" id="zi">缩放 100%</span></div><div class="viewport" id="vp"><div class="world" id="world"><svg class="conn-svg" id="csvg"></svg></div></div></div>`;
   CS.vp=document.getElementById('vp');CS.world=document.getElementById('world');CS.svg=document.getElementById('csvg');
   for(const n of CS.nodes){const ne=buildNodeEl(n);CS.world.appendChild(ne);ne.style.left=n.pos[0]+'px';ne.style.top=n.pos[1]+'px';}
+  const nodeSearchInput=document.getElementById('nodeSearchInput');
+  if(nodeSearchInput) nodeSearchInput.addEventListener('input', e=>applyNodeFilter(e.target.value));
   setupCanvas();
-  setTimeout(()=>{drawConns();fitView();},80);
+  setTimeout(()=>{drawConns();fitView();applyNodeFilter('');},80);
 }
 function buildNodeEl(node){
-  const el=document.createElement('div');el.className='cfnode';el.id='cfn-'+node.id;el.dataset.nid=node.id;
+  const el=document.createElement('div');el.className='cfnode';el.id='cfn-'+node.id;el.dataset.nid=node.id;el.dataset.searchText=getNodeSearchText(node);
   const cc=nodeColorClass(node.type);
   let h=`<div class="nhead ${cc}" data-nid="${node.id}"><span class="ntitle">${esc(node.title||node.type)}</span><span class="nid">#${esc(node.id)}</span></div><div class="nbody">`;
   const maxR=Math.max(node.inputs.length,node.outputs.length);
@@ -1233,6 +1871,32 @@ function buildNodeEl(node){
     h+=`</div>`;
   }
   h+=`</div>`;el.innerHTML=h;return el;
+}
+function getNodeSearchText(node){
+  const parts=[node.title||'', node.type||'', node.id||''];
+  for(const item of (node.params||[])) parts.push(item.k||'', item.v||'');
+  for(const item of (node.inputs||[])) parts.push(item.name||'', item.type||'');
+  for(const item of (node.outputs||[])) parts.push(item.name||'', item.type||'');
+  return parts.join(' \n ').toLowerCase();
+}
+function applyNodeFilter(query){
+  const q=String(query||'').trim().toLowerCase();
+  CS.nodeFilter=q;
+  const nodes=[...document.querySelectorAll('.cfnode')];
+  let matched=0;
+  for(const el of nodes){
+    const hit=!q || (el.dataset.searchText||'').includes(q);
+    el.classList.toggle('match', !!q && hit);
+    el.classList.toggle('dim', !!q && !hit);
+    if(q && hit) matched++;
+  }
+  const count=document.getElementById('nodeFilterCount');
+  if(count) count.textContent=q ? `命中 ${matched} / ${nodes.length}` : '未筛选';
+}
+function clearNodeFilter(){
+  const input=document.getElementById('nodeSearchInput');
+  if(input) input.value='';
+  applyNodeFilter('');
 }
 function slotPos(nodeId,slotIdx,dir){
   const node=CS.nodes.find(n=>n.id===String(nodeId));if(!node) return null;
@@ -1622,8 +2286,31 @@ function buildFavoriteTitle(payload){
   const e=payload.entries[0];
   return `单图收藏 · ${e?.name||'未命名图片'}`;
 }
-function serializeEntry(entry){
-  return {name:entry.file.name,size:entry.file.size||0,type:entry.type,meta:entry.meta,parsed:entry.parsed};
+async function createThumbnailFromSource(src, label='META'){
+  if(!src) return getPlaceholderThumb(label);
+  try{
+    const img=new Image();
+    img.decoding='async';
+    img.referrerPolicy='no-referrer';
+    await new Promise((resolve,reject)=>{img.onload=resolve;img.onerror=reject;img.src=src;});
+    const w=img.naturalWidth||img.width||FAVORITE_THUMB_SIZE;
+    const h=img.naturalHeight||img.height||FAVORITE_THUMB_SIZE;
+    if(!w || !h) return getPlaceholderThumb(label);
+    const scale=FAVORITE_THUMB_SIZE/Math.max(w,h);
+    const tw=Math.max(1, Math.round(w*scale));
+    const th=Math.max(1, Math.round(h*scale));
+    const canvas=document.createElement('canvas');
+    canvas.width=tw; canvas.height=th;
+    const ctx=canvas.getContext('2d');
+    ctx.drawImage(img,0,0,tw,th);
+    return canvas.toDataURL('image/jpeg',0.82);
+  }catch(err){
+    return getPlaceholderThumb(label);
+  }
+}
+async function serializeEntry(entry){
+  const thumb64=await createThumbnailFromSource(entry.imgURL, (entry?.type||'META').slice(0,2).toUpperCase());
+  return {name:entry.file.name,size:entry.file.size||0,type:entry.type,meta:entry.meta,parsed:entry.parsed,thumb64};
 }
 function parseByType(type, meta){
   if(type==='sdwebui') return parseSDParams(meta.parameters||meta.Comment||'', meta);
@@ -1633,12 +2320,99 @@ function parseByType(type, meta){
   return {params:[]};
 }
 function hydrateEntry(item){
-  return {file:{name:item.name||'favorite.png',size:item.size||0},meta:item.meta||{},type:item.type||detectType(item.meta||{}),parsed:item.parsed||parseByType(item.type||detectType(item.meta||{}), item.meta||{}),imgURL:null};
+  return {file:{name:item.name||'favorite.png',size:item.size||0},meta:item.meta||{},type:item.type||detectType(item.meta||{}),parsed:item.parsed||parseByType(item.type||detectType(item.meta||{}), item.meta||{}),imgURL:null,thumb64:item.thumb64||null};
 }
-function saveCurrentFavorite(){
+function getTypeLabel(type){
+  return {sdwebui:'SD WebUI',comfyui:'ComfyUI',novelai:'NovelAI',midjourney:'Midjourney',unknown:'未知格式'}[type] || '未知格式';
+}
+function collectFavoriteSearchInfo(item){
+  const entries=(item.entries||[]).map(e=>e.parsed?e:hydrateEntry(e));
+  const info={
+    sourceList:[...new Set(entries.map(e=>e.type||'unknown'))],
+    model:'',
+    prompt:'',
+    resolution:'',
+    keyword:''
+  };
+  const modelCandidates=[];
+  const promptCandidates=[];
+  const resCandidates=[];
+  const keywordParts=[item.title||'', item.mode||'', ...(entries.map(e=>e.name||''))];
+  for(const entry of entries){
+    const parsed=entry.parsed||{};
+    const type=entry.type||'unknown';
+    const pairs=[];
+    if(type==='comfyui'){
+      for(const node of (parsed.nodes||[])){
+        keywordParts.push(node.title||'', node.type||'');
+        for(const p of (node.params||[])){
+          pairs.push(p);
+          keywordParts.push(p.k||'', p.v||'');
+        }
+      }
+    }else{
+      for(const p of [...(parsed.params||[]), ...(parsed.pluginParams||[])]){
+        pairs.push(p);
+        keywordParts.push(p.k||'', p.v||'');
+      }
+      if(parsed.pos) promptCandidates.push(parsed.pos);
+      if(parsed.neg) keywordParts.push(parsed.neg);
+    }
+    for(const {k,v} of pairs){
+      const key=String(k||'');
+      const val=String(v||'');
+      if(/^(model|model name|base model|checkpoint|checkpoint name|ckpt_name|model hash)$/i.test(key) || /ckpt|checkpoint|model/i.test(key)) modelCandidates.push(val);
+      if(/^(size|resolution|尺寸|分辨率)$/i.test(key) && /\d+\s*[x×]\s*\d+/i.test(val)) resCandidates.push(val.replace(/\s*[×]\s*/g,'x'));
+      if(/^(width|w)$/i.test(key)) keywordParts.push(`width:${val}`);
+      if(/^(height|h)$/i.test(key)) keywordParts.push(`height:${val}`);
+      if(/^(prompt|positive prompt|text|prompt text)$/i.test(key) || /positive/i.test(key)) promptCandidates.push(val);
+    }
+    if(!resCandidates.length){
+      const width=firstNonEmpty(...pairs.filter(p=>/^(width|w)$/i.test(String(p.k||''))).map(p=>p.v));
+      const height=firstNonEmpty(...pairs.filter(p=>/^(height|h)$/i.test(String(p.k||''))).map(p=>p.v));
+      if(width && height) resCandidates.push(`${width}x${height}`);
+    }
+  }
+  info.model=firstNonEmpty(...modelCandidates);
+  info.prompt=firstNonEmpty(...promptCandidates);
+  info.resolution=firstNonEmpty(...resCandidates);
+  info.keyword=keywordParts.join(' ').toLowerCase();
+  return info;
+}
+function getFavoriteFilters(){
+  return {
+    model:(document.getElementById('favFilterModel')?.value||'').trim().toLowerCase(),
+    prompt:(document.getElementById('favFilterPrompt')?.value||'').trim().toLowerCase(),
+    resolution:(document.getElementById('favFilterResolution')?.value||'').trim().toLowerCase().replace(/×/g,'x'),
+    source:(document.getElementById('favFilterSource')?.value||'').trim().toLowerCase(),
+    keyword:(document.getElementById('favFilterKeyword')?.value||'').trim().toLowerCase()
+  };
+}
+function favoriteMatchesFilter(item, filters){
+  const info=collectFavoriteSearchInfo(item);
+  if(filters.model && !info.model.toLowerCase().includes(filters.model)) return false;
+  if(filters.prompt && !info.prompt.toLowerCase().includes(filters.prompt)) return false;
+  if(filters.resolution && !info.resolution.toLowerCase().replace(/×/g,'x').includes(filters.resolution)) return false;
+  if(filters.source && !info.sourceList.includes(filters.source)) return false;
+  if(filters.keyword && !info.keyword.includes(filters.keyword)) return false;
+  item.__filterInfo=info;
+  return true;
+}
+function buildFavoriteThumbStack(item){
+  const thumbs=(item.entries||[]).slice(0,3).map(e=>e.thumb64 || getPlaceholderThumb((e.type||'META').slice(0,2).toUpperCase()));
+  const extra=(item.entries?.length||0)-thumbs.length;
+  let html='<div class="fav-thumb-col"><div class="fav-thumb-stack">';
+  for(const src of thumbs){ html+=`<img class="fav-thumb" src="${src}" alt="">`; }
+  html+='</div>';
+  if(extra>0) html+=`<div class="fav-thumb-more">+${extra}</div>`;
+  html+='</div>';
+  return html;
+}
+async function saveCurrentFavorite(){
   if(!currentViewData || !currentViewData.entries || !currentViewData.entries.length){ showToast('⚠️ 当前没有可收藏的元数据'); return; }
   const favorites=getFavorites();
-  const payload={id:`fav_${Date.now()}_${Math.random().toString(36).slice(2,8)}`,createdAt:new Date().toISOString(),mode:currentViewData.mode,entries:currentViewData.entries.map(serializeEntry)};
+  const entries=await Promise.all(currentViewData.entries.map(serializeEntry));
+  const payload={id:`fav_${Date.now()}_${Math.random().toString(36).slice(2,8)}`,createdAt:new Date().toISOString(),mode:currentViewData.mode,entries};
   payload.title=buildFavoriteTitle(payload);
   favorites.unshift(payload);
   try{
@@ -1646,6 +2420,7 @@ function saveCurrentFavorite(){
     renderFavoritesMenu();
     showToast('⭐ 已收藏到本地');
   }catch(err){
+    console.error(err);
     showToast('⚠️ 收藏失败，可能超出 localStorage 容量');
   }
 }
@@ -1656,7 +2431,7 @@ function deleteFavorite(id){
   showToast('🗑 已删除收藏');
 }
 function exportFavorites(){
-  downloadJSON({version:1, exportedAt:new Date().toISOString(), favorites:getFavorites()}, 'awp_favorites_export.json');
+  downloadJSON({version:2, exportedAt:new Date().toISOString(), favorites:getFavorites()}, 'awp_favorites_export.json');
 }
 function triggerImportFavorites(){
   document.getElementById('favImportInput').click();
@@ -1695,19 +2470,34 @@ function loadFavorite(id){
   document.getElementById('favBtn').setAttribute('aria-expanded','false');
   showToast('✓ 已载入收藏元数据');
 }
+function resetFavoriteFilters(){
+  ['favFilterModel','favFilterPrompt','favFilterResolution','favFilterKeyword'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  const sel=document.getElementById('favFilterSource'); if(sel) sel.value='';
+  renderFavoritesMenu();
+}
 function renderFavoritesMenu(){
   const host=document.getElementById('favList'); if(!host) return;
   const list=getFavorites();
-  if(!list.length){
-    host.innerHTML='<div class="fav-empty">还没有本地收藏。先解析图片，再点星标收藏当前结果。</div>';
+  const filters=getFavoriteFilters();
+  const filtered=list.filter(item=>favoriteMatchesFilter(item, filters));
+  const stat=document.getElementById('favFilterStats');
+  if(stat) stat.textContent=`${filtered.length} / ${list.length} 条`;
+  if(!filtered.length){
+    host.innerHTML=`<div class="fav-empty">${list.length?'没有符合当前筛选条件的收藏。':'还没有本地收藏。先解析图片，再点星标收藏当前结果。'}</div>`;
     return;
   }
   host.innerHTML='';
-  for(const item of list){
+  for(const item of filtered){
     const div=document.createElement('div');
     div.className='fav-item';
     const time=new Date(item.createdAt).toLocaleString('zh-CN',{hour12:false});
-    div.innerHTML=`<div class="fav-main"><div class="fav-title">${esc(item.title||buildFavoriteTitle(item))}<span class="badge ${item.mode==='compare'?'cf':'sd'}">${item.mode==='compare'?'对比':'单图'}</span></div><div class="fav-meta">${esc(time)}<br>${esc(item.entries.map(e=>e.name).join(' · '))}</div></div><div class="fav-ops"><button class="fav-op" type="button">载入</button><button class="fav-op" type="button">删除</button></div>`;
+    const info=item.__filterInfo || collectFavoriteSearchInfo(item);
+    const sourceText=info.sourceList.map(getTypeLabel).join(' · ');
+    const metaParts=[time, sourceText];
+    if(info.model) metaParts.push(`模型：${info.model}`);
+    if(info.resolution) metaParts.push(`分辨率：${info.resolution}`);
+    if(info.prompt) metaParts.push(`提示词：${info.prompt.slice(0,88)}${info.prompt.length>88?'…':''}`);
+    div.innerHTML=`${buildFavoriteThumbStack(item)}<div class="fav-main"><div class="fav-title">${esc(item.title||buildFavoriteTitle(item))}<span class="badge ${item.mode==='compare'?'cf':'sd'}">${item.mode==='compare'?'对比':'单图'}</span></div><div class="fav-meta">${esc(metaParts.join(' ｜ '))}<br>${esc((item.entries||[]).map(e=>e.name).join(' · '))}</div></div><div class="fav-ops"><button class="fav-op" type="button">载入</button><button class="fav-op" type="button">删除</button></div>`;
     const [loadBtn,delBtn]=div.querySelectorAll('.fav-op');
     loadBtn.onclick=()=>loadFavorite(item.id);
     delBtn.onclick=()=>deleteFavorite(item.id);
@@ -1724,14 +2514,16 @@ function initFavorites(){
       input.value='';
     });
   }
+  ['favFilterModel','favFilterPrompt','favFilterResolution','favFilterKeyword','favFilterSource'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el) el.addEventListener(id==='favFilterSource'?'change':'input', ()=>renderFavoritesMenu());
+  });
 }
 
 function renderSingleEntry(entry){
   const res=document.getElementById('result');
   const rc=document.getElementById('rc');
   res.classList.add('on');
-  const typeLabel={sdwebui:'SD WebUI',comfyui:'ComfyUI',novelai:'NovelAI',midjourney:'Midjourney',unknown:'未知格式'};
-  const typeCls={sdwebui:'sd',comfyui:'cf',novelai:'nai',midjourney:'mj',unknown:'uk'};
   const meta=entry.meta||{};
   const type=entry.type||detectType(meta);
   const parsed=entry.parsed||parseByType(type, meta);
@@ -1739,13 +2531,18 @@ function renderSingleEntry(entry){
 
   const safeName=entry.file?.name||'收藏元数据';
   const jsonName=(safeName.replace(/\.[^.]+$/,'')||'metadata')+'.json';
+
+  const summaryCard=makeSummaryCard({...entry, type, parsed});
+
   const bar=document.createElement('div');
   bar.className='infobar';
   const sizeText=entry.file && entry.file.size ? `${(entry.file.size/1024).toFixed(1)} KB · ` : '';
-  bar.innerHTML=`<img src="${getEntryThumb(entry)}" class="prev-img ${entry.imgURL?'':'thumb-ph'}" alt=""><div class="imeta"><h3>${esc(safeName)}</h3><p>${sizeText}${typeLabel[type]||'Unknown'}</p></div><span class="badge ${typeCls[type]||'uk'}">${typeLabel[type]||'Unknown'}</span><button class="dl-btn" onclick='downloadJSON(${JSON.stringify(meta)}, ${JSON.stringify(jsonName)})'>⬇ 下载 JSON</button>`;
+  bar.innerHTML=`<img src="${getEntryThumb(entry)}" class="prev-img ${entry.imgURL?'':'thumb-ph'}" alt=""><div class="imeta"><h3>${esc(safeName)}</h3><p>${sizeText}${getTypeLabel(type)}</p></div><span class="badge ${getTypeClass(type)}">${getTypeLabel(type)}</span><button class="dl-btn" onclick='downloadJSON(${JSON.stringify(meta)}, ${JSON.stringify(jsonName)})'>⬇ 下载 JSON</button>`;
 
   const main=document.createElement('div');
   rc.innerHTML='';
+  rc.appendChild(summaryCard);
+  hydrateSummaryResolutionFromImage(summaryCard, {...entry, type, parsed});
   rc.appendChild(bar);
   rc.appendChild(main);
 
