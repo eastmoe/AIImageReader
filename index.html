@@ -23,6 +23,9 @@
   --radius: 13px;
   --mono: 'JetBrains Mono', 'Consolas', monospace;
   --sans: 'Nunito', 'Segoe UI', sans-serif;
+  --diff-bg: #fff8e1;
+  --diff-border: #f59e0b;
+  --diff-text: #92400e;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh}
@@ -34,6 +37,13 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .header h1{font-size:20px;font-weight:800;color:var(--primary-dark)}
 .header p{font-size:13px;color:var(--text-muted);margin-top:1px}
 .main{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:28px 24px}
+
+/* MODE TOGGLE */
+.mode-row{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.mode-lbl{font-size:13px;font-weight:700;color:var(--text-muted)}
+.mode-btn{padding:6px 16px;border-radius:20px;border:1.5px solid var(--border);background:var(--surface);font-size:12.5px;font-weight:700;color:var(--text-muted);cursor:pointer;font-family:var(--sans);transition:all .2s}
+.mode-btn.act{background:var(--primary);border-color:var(--primary);color:#fff}
+.mode-hint{font-size:12px;color:var(--text-muted);margin-left:4px}
 
 /* UPLOAD */
 .upload-wrap{position:relative;border:2.5px dashed var(--border);border-radius:var(--radius);background:var(--surface);overflow:hidden;cursor:pointer;transition:all .25s}
@@ -59,7 +69,10 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .badge{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:800;letter-spacing:.4px;flex-shrink:0}
 .badge.sd{background:#e3f2fd;color:#1055b0}
 .badge.cf{background:#e8f5e9;color:#1f7e40}
+.badge.nai{background:#fdf2f8;color:#86198f}
 .badge.uk{background:#f3e5f5;color:#6a1b9a}
+.dl-btn{padding:6px 14px;background:var(--primary);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--sans);display:flex;align-items:center;gap:5px;flex-shrink:0;transition:background .2s}
+.dl-btn:hover{background:var(--primary-dark)}
 
 /* SD WEBUI */
 .card{background:var(--surface);border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
@@ -79,6 +92,12 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .cbtn{flex-shrink:0;width:26px;height:26px;background:var(--surface2);border:1px solid var(--border);border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px;transition:all .18s;color:var(--text-muted)}
 .cbtn:hover{background:var(--primary);border-color:var(--primary);color:#fff;transform:scale(1.08)}
 .cbtn.ok{background:var(--accent);border-color:var(--accent);color:#fff}
+
+/* NAI */
+.nai-wrap{background:linear-gradient(135deg,#fdf4ff,#fce7f3);border-radius:var(--radius);border:1.5px solid #e879f9;overflow:hidden;box-shadow:var(--shadow)}
+.nai-wrap .sec-hd{background:linear-gradient(135deg,#a21caf,#db2777);border-bottom-color:#be185d;color:#fff}
+.nai-wrap .ptext{background:#fdf4ff;border-color:#f0abfc}
+.nai-wrap .ptext.neg{background:#fff1f2;border-color:#fda4af}
 
 /* COMFYUI CANVAS */
 .cf-card{background:var(--surface);border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
@@ -104,8 +123,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .ntitle{font-size:11.5px;font-weight:800;color:#fff;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;letter-spacing:.2px;pointer-events:none}
 .nid{font-size:10px;font-family:var(--mono);color:rgba(255,255,255,.8);background:rgba(0,0,0,.2);padding:2px 6px;border-radius:4px;flex-shrink:0;pointer-events:none}
 .nbody{padding:0}
-
-/* Slots */
 .slots-wrap{padding:5px 0 4px}
 .srow{display:flex;justify-content:space-between;align-items:center;min-height:24px}
 .sinput,.soutput{display:flex;align-items:center;gap:5px;padding:3px 0}
@@ -115,8 +132,6 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .sinput .sdot{margin-left:-12px}
 .soutput .sdot{margin-right:-12px}
 .sname{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
-
-/* Node params */
 .nparams{padding:5px 10px 8px;border-top:1px solid #eef5f1;margin-top:3px}
 .npitem{display:flex;align-items:center;gap:5px;padding:2.5px 0}
 .npkey{font-size:10.5px;color:var(--text-muted);font-weight:700;min-width:68px;flex-shrink:0}
@@ -148,6 +163,50 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 @keyframes spin{to{transform:rotate(360deg)}}
 .toast{position:fixed;bottom:26px;right:26px;background:#1a3d26;color:#fff;padding:10px 20px;border-radius:9px;font-size:13px;font-weight:700;z-index:9999;transform:translateY(80px);transition:transform .3s cubic-bezier(.34,1.56,.64,1);pointer-events:none;box-shadow:0 4px 20px rgba(0,0,0,.18)}
 .toast.on{transform:translateY(0)}
+
+/* ── COMPARISON MODE ───────────────────────────────────────────── */
+.cmp-header{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--surface);border-radius:var(--radius);border:1.5px solid var(--border);margin-bottom:18px;box-shadow:var(--shadow);flex-wrap:wrap}
+.cmp-header h3{font-size:15px;font-weight:800;color:var(--primary-dark);flex:1}
+.cmp-subtext{font-size:12px;color:var(--text-muted)}
+.cmp-clear{padding:5px 14px;background:#fff5f6;border:1.5px solid #fbd5da;border-radius:7px;font-size:12px;font-weight:700;color:#be123c;cursor:pointer;font-family:var(--sans);transition:all .2s}
+.cmp-clear:hover{background:#fbd5da}
+.cmp-dl{padding:5px 14px;background:var(--primary);border:none;border-radius:7px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;font-family:var(--sans);transition:background .2s}
+.cmp-dl:hover{background:var(--primary-dark)}
+
+.cmp-wrap{background:var(--surface);border-radius:var(--radius);border:1.5px solid var(--border);overflow:hidden;box-shadow:var(--shadow)}
+.cmp-scroll{overflow-x:auto}
+.cmp-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.cmp-table th{padding:10px 14px;background:var(--surface2);border-bottom:2px solid var(--border);border-right:1px solid var(--border-light);font-weight:700;color:var(--primary-dark);text-align:left;white-space:nowrap;min-width:140px;position:sticky;top:0}
+.cmp-table th:first-child{min-width:130px;position:sticky;left:0;z-index:2;background:var(--surface2)}
+.cmp-table td{padding:9px 14px;border-bottom:1px solid var(--border-light);border-right:1px solid var(--border-light);vertical-align:middle}
+.cmp-table td:first-child{font-size:11.5px;font-weight:700;color:var(--text-muted);background:var(--surface2);position:sticky;left:0;z-index:1;white-space:nowrap}
+.cmp-table tr:hover td{background:#f6fdf8}
+.cmp-table tr:hover td:first-child{background:var(--surface2)}
+.cmp-val{font-family:var(--mono);font-size:11.5px;color:var(--text);word-break:break-word;max-width:240px}
+.cmp-empty{color:var(--text-muted);font-style:italic;font-size:11px}
+
+/* DIFF highlight */
+.diff-row td{background:#fffbeb !important}
+.diff-row td:first-child{background:#fef3c7 !important}
+.diff-cell{background:var(--diff-bg) !important;border-left:3px solid var(--diff-border) !important}
+.diff-cell .cmp-val{color:var(--diff-text);font-weight:700}
+.diff-badge{display:inline-block;background:var(--diff-border);color:#fff;border-radius:4px;font-size:9px;font-weight:800;padding:1px 5px;margin-left:5px;vertical-align:middle;letter-spacing:.5px}
+
+/* Thumb in compare header */
+.cmp-th-inner{display:flex;flex-direction:column;align-items:center;gap:6px;padding:4px 0}
+.cmp-thumb{width:56px;height:56px;object-fit:cover;border-radius:8px;border:2px solid var(--border)}
+.cmp-fname{font-size:10.5px;font-weight:700;color:var(--text-muted);text-align:center;max-width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cmp-ftype{font-size:9.5px;color:#fff;padding:2px 7px;border-radius:10px;font-weight:800;letter-spacing:.3px}
+.cmp-ftype.sd{background:#1055b0}
+.cmp-ftype.nai{background:#86198f}
+.cmp-ftype.cf{background:#1f7e40}
+.cmp-ftype.uk{background:#6a1b9a}
+.cmp-add-hint{padding:20px;text-align:center;color:var(--text-muted);font-size:13px;border-top:1.5px dashed var(--border-light)}
+
+/* Prompts in comparison */
+.cmp-prompt{font-family:var(--mono);font-size:10.5px;line-height:1.55;max-height:80px;overflow:hidden;position:relative;word-break:break-word;color:var(--text)}
+.cmp-prompt.diff{color:var(--diff-text);font-weight:600}
+
 @media(max-width:768px){.main{padding:16px 14px}.pgrid{grid-template-columns:1fr}.viewport{height:480px}.header h1{font-size:17px}}
 </style>
 </head>
@@ -157,19 +216,28 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
   <div class="hicon">🌿</div>
   <div>
     <h1>AI 图片工作流解析器</h1>
-    <p>解析 ComfyUI · Stable Diffusion WebUI 生成图片的参数与工作流</p>
+    <p>解析 ComfyUI · SD WebUI · NovelAI 生成图片的参数与工作流</p>
   </div>
 </div>
 
 <div class="main">
+  <!-- Mode Row -->
+  <div class="mode-row">
+    <span class="mode-lbl">模式</span>
+    <button class="mode-btn act" id="modeSingle" onclick="setMode('single')">🔍 单张解析</button>
+    <button class="mode-btn" id="modeCompare" onclick="setMode('compare')">⚖️ 多图对比</button>
+    <span class="mode-hint" id="modeHint">上传一张 AI 图片解析元数据</span>
+  </div>
+
   <div class="upload-wrap" id="uploadWrap">
     <div class="upload-inner">
       <span class="uicon">🖼️</span>
-      <h2>拖拽图片至此，或点击上传</h2>
-      <p>支持 ComfyUI 和 SD WebUI 生成的 PNG 图片</p>
+      <h2 id="uploadTitle">拖拽图片至此，或点击上传</h2>
+      <p id="uploadSub">支持 ComfyUI · SD WebUI · NovelAI 生成的 PNG 图片</p>
     </div>
     <input type="file" id="fileInput" accept="image/png,image/jpeg,image/webp" />
   </div>
+
   <div class="result" id="result">
     <div id="rc"></div>
   </div>
@@ -189,6 +257,35 @@ function copy(text,btn){
   })
 }
 function safeJSON(s){try{return JSON.parse(s)}catch{return null}}
+function downloadJSON(obj,filename){
+  const blob=new Blob([JSON.stringify(obj,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();URL.revokeObjectURL(a.href);
+  showToast('✓ JSON 已下载');
+}
+
+// ─── Mode Management ─────────────────────────────────────────────────────────
+let currentMode='single';
+let compareQueue=[]; // [{file, meta, type, parsed, imgURL}]
+
+function setMode(m){
+  currentMode=m;
+  document.getElementById('modeSingle').classList.toggle('act',m==='single');
+  document.getElementById('modeCompare').classList.toggle('act',m==='compare');
+  const fi=document.getElementById('fileInput');
+  if(m==='compare'){
+    fi.multiple=true;
+    document.getElementById('uploadTitle').textContent='拖拽多张图片至此，或点击上传';
+    document.getElementById('uploadSub').textContent='上传同类型 AI 图片进行参数对比（最多 6 张）';
+    document.getElementById('modeHint').textContent='上传多张同类型图片，高亮显示不同参数';
+    if(compareQueue.length) renderComparison();
+  } else {
+    fi.multiple=false;
+    document.getElementById('uploadTitle').textContent='拖拽图片至此，或点击上传';
+    document.getElementById('uploadSub').textContent='支持 ComfyUI · SD WebUI · NovelAI 生成的 PNG 图片';
+    document.getElementById('modeHint').textContent='上传一张 AI 图片解析元数据';
+    compareQueue=[];
+  }
+}
 
 // ─── PNG Metadata Reader ──────────────────────────────────────────────────────
 async function readPNGMeta(file){
@@ -246,6 +343,77 @@ async function readPNGMeta(file){
   return meta;
 }
 
+// ─── Type Detection ───────────────────────────────────────────────────────────
+function detectType(meta){
+  if(!meta) return 'unknown';
+  if(meta.Software==='NovelAI') return 'novelai';
+  // NAI without Software tag: Description + Comment with NAI-style fields
+  if(meta.Description && meta.Comment){
+    const c=safeJSON(meta.Comment);
+    if(c && (c.uc!==undefined||c.scale!==undefined||c.sampler!==undefined)) return 'novelai';
+  }
+  if(meta.workflow||(meta.prompt&&!meta.parameters)) return 'comfyui';
+  if(meta.parameters) return 'sdwebui';
+  return 'unknown';
+}
+
+// ─── NovelAI Parser ───────────────────────────────────────────────────────────
+function parseNAI(meta){
+  const c=safeJSON(meta.Comment)||{};
+  const pos=meta.Description||c.prompt||'';
+  const neg=c.uc||'';
+  const paramMap={
+    'steps':'Steps','sampler':'Sampler','seed':'Seed',
+    'scale':'CFG Scale','strength':'Strength','noise':'Noise',
+    'cfg_rescale':'CFG Rescale','sm':'SMEA','sm_dyn':'SMEA DYN',
+    'width':'Width','height':'Height',
+    'model':'Model','clip_skip':'Clip Skip',
+    'n_samples':'Batch Size','qualityToggle':'Quality Toggle',
+    'ucPreset':'UC Preset','dynamic_thresholding':'Dyn Threshold',
+    'controlnet_strength':'ControlNet Strength',
+    'add_original_image':'Add Original Img',
+  };
+  const params=[];
+  for(const [ck,label] of Object.entries(paramMap)){
+    if(c[ck]!==undefined&&c[ck]!==null){
+      params.push({k:label,v:String(c[ck])});
+    }
+  }
+  // Add any remaining unknown keys
+  const known=new Set(Object.keys(paramMap).concat(['uc','prompt']));
+  for(const [k,v] of Object.entries(c)){
+    if(!known.has(k)&&v!==null&&v!==undefined&&typeof v!=='object'){
+      params.push({k,v:String(v)});
+    }
+  }
+  if(meta.Source) params.push({k:'Source Hash',v:meta.Source});
+  if(meta['Generation time']) params.push({k:'Gen Time',v:meta['Generation time']});
+  return {pos,neg,params};
+}
+
+// ─── NAI Renderer ────────────────────────────────────────────────────────────
+function renderNAI(parsed,el){
+  let h=`<div class="nai-wrap">`;
+  h+=`<div class="sec-hd">🎨 NovelAI 生成参数</div>`;
+  if(parsed.pos){
+    const sv=JSON.stringify(parsed.pos);
+    h+=`<div class="prompt-box"><div class="plabel">正向提示词 (Positive Prompt)</div><div class="ptext"><button class="pcopy" onclick="copy(${sv},this)">复制</button>${esc(parsed.pos)}</div></div>`;
+  }
+  if(parsed.neg){
+    const sv=JSON.stringify(parsed.neg);
+    h+=`<div class="prompt-box"><div class="plabel">不希望出现的内容 (Undesired Content)</div><div class="ptext neg"><button class="pcopy" onclick="copy(${sv},this)">复制</button>${esc(parsed.neg)}</div></div>`;
+  }
+  if(parsed.params.length){
+    h+=`<div class="sec-hd">⚙️ 生成参数 (${parsed.params.length} 项)</div><div class="pgrid">`;
+    for(const {k,v} of parsed.params){
+      h+=`<div class="pitem"><span class="pkey">${esc(k)}</span><span class="pval" title="${esc(v)}">${esc(v)}</span><button class="cbtn" onclick="copy(${JSON.stringify(v)},this)">⎘</button></div>`;
+    }
+    h+=`</div>`;
+  }
+  h+=`</div>`;
+  el.innerHTML=h;
+}
+
 // ─── SD WebUI Parser ──────────────────────────────────────────────────────────
 function parseSDParams(raw){
   const r={pos:'',neg:'',params:[]};
@@ -276,15 +444,10 @@ function parseSDParams(raw){
   }
   if(settings){
     const all=settings.replace(/\n/g,', ');
-    // Split at comma followed by word(s)+colon (lookahead)
     const parts=all.split(/,\s*(?=[A-Za-z][^:,]*:)/);
     for(const p of parts){
       const ci=p.indexOf(':');
-      if(ci>0){
-        const k=p.slice(0,ci).trim();
-        const v=p.slice(ci+1).trim();
-        if(k&&v) r.params.push({k,v});
-      }
+      if(ci>0){const k=p.slice(0,ci).trim();const v=p.slice(ci+1).trim();if(k&&v) r.params.push({k,v});}
     }
   }
   return r;
@@ -306,46 +469,27 @@ function connColor(t){
   const MAP={MODEL:'#7c3aed',CLIP:'#059669',VAE:'#e11d48',LATENT:'#db2777',IMAGE:'#2563eb',CONDITIONING:'#d97706',INT:'#64748b',FLOAT:'#64748b',STRING:'#65a30d'};
   return MAP[s]||'#94a3b8';
 }
-
 function parseComfyWorkflow(wfStr,promptStr){
-  const wf=safeJSON(wfStr);
-  const pr=safeJSON(promptStr);
+  const wf=safeJSON(wfStr);const pr=safeJSON(promptStr);
   if(!wf&&!pr) return null;
-  // Workflow format (has .nodes array)
   if(wf&&Array.isArray(wf.nodes)) return fromWorkflow(wf,pr);
-  // Prompt-only or workflow is prompt format
   const candidate=wf||pr;
-  if(candidate){
-    const keys=Object.keys(candidate);
-    if(keys.length&&candidate[keys[0]]&&candidate[keys[0]].class_type) return fromPrompt(candidate);
-  }
+  if(candidate){const keys=Object.keys(candidate);if(keys.length&&candidate[keys[0]]&&candidate[keys[0]].class_type) return fromPrompt(candidate);}
   if(pr) return fromPrompt(pr);
   return null;
 }
-
 function fromWorkflow(wf,pr){
   const links={};
-  for(const lk of (wf.links||[])){
-    // [id, srcNode, srcSlot, dstNode, dstSlot, type]
-    links[lk[0]]={id:lk[0],srcNode:String(lk[1]),srcSlot:lk[2],dstNode:String(lk[3]),dstSlot:lk[4],type:lk[5]||'default'};
-  }
+  for(const lk of (wf.links||[])){links[lk[0]]={id:lk[0],srcNode:String(lk[1]),srcSlot:lk[2],dstNode:String(lk[3]),dstSlot:lk[4],type:lk[5]||'default'};}
   const nodes=[];
   for(const wn of wf.nodes){
     const pn=pr?pr[String(wn.id)]:null;
     const promptInputs=pn?pn.inputs||{}:{};
     const wv=wn.widgets_values||[];
-    // Build params: match non-link inputs from prompt
     const params=[];
     const nonLinkKeys=Object.keys(promptInputs).filter(k=>!Array.isArray(promptInputs[k]));
-    for(let i=0;i<wv.length;i++){
-      const k=nonLinkKeys[i]||`widget_${i+1}`;
-      if(wv[i]!==null&&wv[i]!==undefined) params.push({k,v:String(wv[i])});
-    }
-    if(params.length===0&&pn){
-      for(const [k,v] of Object.entries(promptInputs)){
-        if(!Array.isArray(v)) params.push({k,v:String(v)});
-      }
-    }
+    for(let i=0;i<wv.length;i++){const k=nonLinkKeys[i]||`widget_${i+1}`;if(wv[i]!==null&&wv[i]!==undefined) params.push({k,v:String(wv[i])});}
+    if(params.length===0&&pn){for(const [k,v] of Object.entries(promptInputs)){if(!Array.isArray(v)) params.push({k,v:String(v)});}}
     const inputs=(wn.inputs||[]).map((inp,i)=>({name:inp.name||`in_${i}`,type:inp.type||'default',linkId:inp.link??null,slot:i}));
     const outputs=(wn.outputs||[]).map((out,i)=>({name:out.name||`out_${i}`,type:out.type||'default',links:out.links||[],slot:out.slot_index!==undefined?out.slot_index:i}));
     const pos=wn.pos||[0,0];
@@ -353,85 +497,46 @@ function fromWorkflow(wf,pr){
   }
   return {nodes,links};
 }
-
 function fromPrompt(pr){
   const nodes=[];const links={};let lid=0;
-  // First pass: create nodes
+  for(const [id,nd] of Object.entries(pr)){if(!nd.class_type) continue;nodes.push({id,type:nd.class_type,title:nd._meta?.title||nd.class_type,pos:null,inputs:[],outputs:[],params:[]});}
   for(const [id,nd] of Object.entries(pr)){
     if(!nd.class_type) continue;
-    nodes.push({id,type:nd.class_type,title:nd._meta?.title||nd.class_type,pos:null,inputs:[],outputs:[],params:[]});
-  }
-  // Second pass: inputs & connections
-  for(const [id,nd] of Object.entries(pr)){
-    if(!nd.class_type) continue;
-    const node=nodes.find(n=>n.id===id);
-    if(!node) continue;
+    const node=nodes.find(n=>n.id===id);if(!node) continue;
     const ins=[],params=[];
     for(const [k,v] of Object.entries(nd.inputs||{})){
-      if(Array.isArray(v)&&v.length===2&&typeof v[1]==='number'){
-        const fromNode=String(v[0]),fromSlot=v[1];
-        lid++;
-        links[lid]={id:lid,srcNode:fromNode,srcSlot:fromSlot,dstNode:id,dstSlot:ins.length,type:k.toUpperCase()};
-        ins.push({name:k,type:k.toUpperCase(),linkId:lid,slot:ins.length});
-      } else {
-        params.push({k,v:String(v)});
-      }
+      if(Array.isArray(v)&&v.length===2&&typeof v[1]==='number'){const fromNode=String(v[0]),fromSlot=v[1];lid++;links[lid]={id:lid,srcNode:fromNode,srcSlot:fromSlot,dstNode:id,dstSlot:ins.length,type:k.toUpperCase()};ins.push({name:k,type:k.toUpperCase(),linkId:lid,slot:ins.length});}
+      else{params.push({k,v:String(v)});}
     }
     node.inputs=ins;node.params=params;
   }
-  // Build outputs from links
-  for(const lk of Object.values(links)){
-    const src=nodes.find(n=>n.id===lk.srcNode);
-    if(!src) continue;
-    let out=src.outputs.find(o=>o.slot===lk.srcSlot);
-    if(!out){out={name:lk.type,type:lk.type,links:[],slot:lk.srcSlot};src.outputs.push(out);src.outputs.sort((a,b)=>a.slot-b.slot);}
-    out.links.push(lk.id);
-  }
+  for(const lk of Object.values(links)){const src=nodes.find(n=>n.id===lk.srcNode);if(!src) continue;let out=src.outputs.find(o=>o.slot===lk.srcSlot);if(!out){out={name:lk.type,type:lk.type,links:[],slot:lk.srcSlot};src.outputs.push(out);src.outputs.sort((a,b)=>a.slot-b.slot);}out.links.push(lk.id);}
   autoLayout(nodes,links);
   return {nodes,links};
 }
-
 function autoLayout(nodes,links){
   const adj={},inDeg={};
   for(const n of nodes){adj[n.id]=[];inDeg[n.id]=inDeg[n.id]||0;}
-  for(const lk of Object.values(links)){
-    (adj[lk.srcNode]=adj[lk.srcNode]||[]).push(lk.dstNode);
-    inDeg[lk.dstNode]=(inDeg[lk.dstNode]||0)+1;
-  }
+  for(const lk of Object.values(links)){(adj[lk.srcNode]=adj[lk.srcNode]||[]).push(lk.dstNode);inDeg[lk.dstNode]=(inDeg[lk.dstNode]||0)+1;}
   const cols={};const visited=new Set();
   let queue=nodes.filter(n=>!(inDeg[n.id]>0)).map(n=>n.id);
   if(!queue.length) queue=nodes.slice(0,1).map(n=>n.id);
   let col=0;
-  while(queue.length){
-    const next=[];
-    for(const id of [...new Set(queue)]){if(visited.has(id)) continue;cols[id]=col;visited.add(id);for(const c of adj[id]||[]) if(!visited.has(c)) next.push(c);}
-    queue=next;col++;
-  }
+  while(queue.length){const next=[];for(const id of [...new Set(queue)]){if(visited.has(id)) continue;cols[id]=col;visited.add(id);for(const c of adj[id]||[]) if(!visited.has(c)) next.push(c);}queue=next;col++;}
   for(const n of nodes){if(cols[n.id]===undefined) cols[n.id]=col++;}
   const rowCnt={};
-  for(const n of nodes){
-    const c=cols[n.id]||0;const row=rowCnt[c]||0;rowCnt[c]=row+1;
-    n.pos=[c*310+40,row*220+40];
-  }
+  for(const n of nodes){const c=cols[n.id]||0;const row=rowCnt[c]||0;rowCnt[c]=row+1;n.pos=[c*310+40,row*220+40];}
 }
 
 // ─── SD WebUI Renderer ────────────────────────────────────────────────────────
 function renderSD(parsed,el){
   let h=`<div class="card">`;
   h+=`<div class="sec-hd">🎨 Stable Diffusion WebUI 参数</div>`;
-  if(parsed.pos){
-    const sv=JSON.stringify(parsed.pos);
-    h+=`<div class="prompt-box"><div class="plabel">正向提示词 (Positive Prompt)</div><div class="ptext"><button class="pcopy" onclick="copy(${sv},this)">复制</button>${esc(parsed.pos)}</div></div>`;
-  }
-  if(parsed.neg){
-    const sv=JSON.stringify(parsed.neg);
-    h+=`<div class="prompt-box"><div class="plabel">负向提示词 (Negative Prompt)</div><div class="ptext neg"><button class="pcopy" onclick="copy(${sv},this)">复制</button>${esc(parsed.neg)}</div></div>`;
-  }
+  if(parsed.pos){const sv=JSON.stringify(parsed.pos);h+=`<div class="prompt-box"><div class="plabel">正向提示词 (Positive Prompt)</div><div class="ptext"><button class="pcopy" onclick="copy(${sv},this)">复制</button>${esc(parsed.pos)}</div></div>`;}
+  if(parsed.neg){const sv=JSON.stringify(parsed.neg);h+=`<div class="prompt-box"><div class="plabel">负向提示词 (Negative Prompt)</div><div class="ptext neg"><button class="pcopy" onclick="copy(${sv},this)">复制</button>${esc(parsed.neg)}</div></div>`;}
   if(parsed.params.length){
     h+=`<div class="sec-hd">⚙️ 生成参数 (${parsed.params.length} 项)</div><div class="pgrid">`;
-    for(const {k,v} of parsed.params){
-      h+=`<div class="pitem"><span class="pkey">${esc(k)}</span><span class="pval" title="${esc(v)}">${esc(v)}</span><button class="cbtn" onclick="copy(${JSON.stringify(v)},this)">⎘</button></div>`;
-    }
+    for(const {k,v} of parsed.params){h+=`<div class="pitem"><span class="pkey">${esc(k)}</span><span class="pval" title="${esc(v)}">${esc(v)}</span><button class="cbtn" onclick="copy(${JSON.stringify(v)},this)">⎘</button></div>`;}
     h+=`</div>`;
   }
   h+=`</div>`;
@@ -440,239 +545,279 @@ function renderSD(parsed,el){
 
 // ─── ComfyUI Canvas ───────────────────────────────────────────────────────────
 const CS={scale:1,ox:0,oy:0,panning:false,dragNode:null,nodes:[],links:{},lineStyle:'bezier',vp:null,world:null,svg:null};
-
 function renderCF(parsed,el){
   CS.nodes=parsed.nodes;CS.links=parsed.links;CS.scale=1;CS.ox=0;CS.oy=0;
   const nc=parsed.nodes.length,lc=Object.keys(parsed.links).length;
-  el.innerHTML=`<div class="cf-card">
-    <div class="toolbar">
-      <span class="tlbl">视图</span>
-      <button class="tbtn" onclick="resetView()">🔄 重置</button>
-      <button class="tbtn" onclick="fitView()">⊞ 适应</button>
-      <div class="tsep"></div>
-      <span class="tlbl">连线</span>
-      <button class="tbtn act" id="btn-bezier" onclick="setLine('bezier')">曲线</button>
-      <button class="tbtn" id="btn-straight" onclick="setLine('straight')">直线</button>
-      <button class="tbtn" id="btn-step" onclick="setLine('step')">折线</button>
-      <div class="tsep"></div>
-      <span class="node-count">${nc} 节点 · ${lc} 连接</span>
-      <span class="tinfo" id="zi">缩放 100%</span>
-    </div>
-    <div class="viewport" id="vp">
-      <div class="world" id="world">
-        <svg class="conn-svg" id="csvg"></svg>
-      </div>
-    </div>
-  </div>`;
-  CS.vp=document.getElementById('vp');
-  CS.world=document.getElementById('world');
-  CS.svg=document.getElementById('csvg');
-  for(const n of CS.nodes){
-    const ne=buildNodeEl(n);
-    CS.world.appendChild(ne);
-    ne.style.left=n.pos[0]+'px';
-    ne.style.top=n.pos[1]+'px';
-  }
+  el.innerHTML=`<div class="cf-card"><div class="toolbar"><span class="tlbl">视图</span><button class="tbtn" onclick="resetView()">🔄 重置</button><button class="tbtn" onclick="fitView()">⊞ 适应</button><div class="tsep"></div><span class="tlbl">连线</span><button class="tbtn act" id="btn-bezier" onclick="setLine('bezier')">曲线</button><button class="tbtn" id="btn-straight" onclick="setLine('straight')">直线</button><button class="tbtn" id="btn-step" onclick="setLine('step')">折线</button><div class="tsep"></div><span class="node-count">${nc} 节点 · ${lc} 连接</span><span class="tinfo" id="zi">缩放 100%</span></div><div class="viewport" id="vp"><div class="world" id="world"><svg class="conn-svg" id="csvg"></svg></div></div></div>`;
+  CS.vp=document.getElementById('vp');CS.world=document.getElementById('world');CS.svg=document.getElementById('csvg');
+  for(const n of CS.nodes){const ne=buildNodeEl(n);CS.world.appendChild(ne);ne.style.left=n.pos[0]+'px';ne.style.top=n.pos[1]+'px';}
   setupCanvas();
   setTimeout(()=>{drawConns();fitView();},80);
 }
-
 function buildNodeEl(node){
-  const el=document.createElement('div');
-  el.className='cfnode';
-  el.id='cfn-'+node.id;
-  el.dataset.nid=node.id;
+  const el=document.createElement('div');el.className='cfnode';el.id='cfn-'+node.id;el.dataset.nid=node.id;
   const cc=nodeColorClass(node.type);
   let h=`<div class="nhead ${cc}" data-nid="${node.id}"><span class="ntitle">${esc(node.title||node.type)}</span><span class="nid">#${esc(node.id)}</span></div><div class="nbody">`;
-  // Slots
   const maxR=Math.max(node.inputs.length,node.outputs.length);
   if(maxR>0){
     h+=`<div class="slots-wrap">`;
     for(let i=0;i<maxR;i++){
       const inp=node.inputs[i],out=node.outputs[i];
       h+=`<div class="srow">`;
-      if(inp){
-        const c=connColor(inp.type);
-        h+=`<div class="sinput"><div class="sdot" id="si-${node.id}-${inp.slot}" style="color:${c};background:${c}22"></div><span class="sname" style="color:${c}">${esc(inp.name)}</span></div>`;
-      } else h+=`<div></div>`;
-      if(out){
-        const c=connColor(out.type);
-        h+=`<div class="soutput"><span class="sname" style="color:${c}">${esc(out.name)}</span><div class="sdot" id="so-${node.id}-${out.slot}" style="color:${c};background:${c}22"></div></div>`;
-      } else h+=`<div></div>`;
+      if(inp){const c=connColor(inp.type);h+=`<div class="sinput"><div class="sdot" id="si-${node.id}-${inp.slot}" style="color:${c};background:${c}22"></div><span class="sname" style="color:${c}">${esc(inp.name)}</span></div>`;}
+      else h+=`<div></div>`;
+      if(out){const c=connColor(out.type);h+=`<div class="soutput"><span class="sname" style="color:${c}">${esc(out.name)}</span><div class="sdot" id="so-${node.id}-${out.slot}" style="color:${c};background:${c}22"></div></div>`;}
+      else h+=`<div></div>`;
       h+=`</div>`;
     }
     h+=`</div>`;
   }
-  // Params
   if(node.params&&node.params.length){
     h+=`<div class="nparams">`;
-    for(const {k,v} of node.params){
-      const disp=String(v).length>32?String(v).slice(0,32)+'…':String(v);
-      h+=`<div class="npitem"><span class="npkey">${esc(k)}</span><span class="npval" title="${esc(String(v))}">${esc(disp)}</span><button class="ncbtn" onclick="copy(${JSON.stringify(String(v))},this)" title="${esc(String(v))}">⎘</button></div>`;
-    }
+    for(const {k,v} of node.params){const disp=String(v).length>32?String(v).slice(0,32)+'…':String(v);h+=`<div class="npitem"><span class="npkey">${esc(k)}</span><span class="npval" title="${esc(String(v))}">${esc(disp)}</span><button class="ncbtn" onclick="copy(${JSON.stringify(String(v))},this)" title="${esc(String(v))}">⎘</button></div>`;}
     h+=`</div>`;
   }
-  h+=`</div>`;
-  el.innerHTML=h;
-  return el;
+  h+=`</div>`;el.innerHTML=h;return el;
 }
-
 function slotPos(nodeId,slotIdx,dir){
-  const node=CS.nodes.find(n=>n.id===String(nodeId));
-  if(!node) return null;
-  const el=document.getElementById('cfn-'+nodeId);
-  const nw=el?el.offsetWidth:240;
+  const node=CS.nodes.find(n=>n.id===String(nodeId));if(!node) return null;
+  const el=document.getElementById('cfn-'+nodeId);const nw=el?el.offsetWidth:240;
   const slots=dir==='out'?node.outputs:node.inputs;
-  let rowIdx=slots.findIndex(s=>s.slot===slotIdx);
-  if(rowIdx<0) rowIdx=Math.min(slotIdx,slots.length-1);
-  if(rowIdx<0) rowIdx=0;
+  let rowIdx=slots.findIndex(s=>s.slot===slotIdx);if(rowIdx<0) rowIdx=Math.min(slotIdx,slots.length-1);if(rowIdx<0) rowIdx=0;
   const HDR=42,SPY=8,SH=24;
   return{x:node.pos[0]+(dir==='out'?nw:0),y:node.pos[1]+HDR+SPY+rowIdx*SH+SH/2};
 }
-
 function drawConns(){
   const svg=CS.svg;if(!svg) return;
   while(svg.firstChild) svg.removeChild(svg.firstChild);
   const defs=document.createElementNS('http://www.w3.org/2000/svg','defs');
   const types=new Set(Object.values(CS.links).map(l=>l.type||'default'));
-  for(const t of types){
-    const c=connColor(t);
-    const m=document.createElementNS('http://www.w3.org/2000/svg','marker');
-    m.setAttribute('id','arr-'+t);m.setAttribute('markerWidth','8');m.setAttribute('markerHeight','7');
-    m.setAttribute('refX','7');m.setAttribute('refY','3.5');m.setAttribute('orient','auto');
-    const p=document.createElementNS('http://www.w3.org/2000/svg','path');
-    p.setAttribute('d','M0,0 L0,7 L8,3.5 z');p.setAttribute('fill',c);
-    m.appendChild(p);defs.appendChild(m);
-  }
+  for(const t of types){const c=connColor(t);const m=document.createElementNS('http://www.w3.org/2000/svg','marker');m.setAttribute('id','arr-'+t);m.setAttribute('markerWidth','8');m.setAttribute('markerHeight','7');m.setAttribute('refX','7');m.setAttribute('refY','3.5');m.setAttribute('orient','auto');const p=document.createElementNS('http://www.w3.org/2000/svg','path');p.setAttribute('d','M0,0 L0,7 L8,3.5 z');p.setAttribute('fill',c);m.appendChild(p);defs.appendChild(m);}
   svg.appendChild(defs);
   for(const lk of Object.values(CS.links)){
-    const s=slotPos(lk.srcNode,lk.srcSlot,'out');
-    const d=slotPos(lk.dstNode,lk.dstSlot,'in');
-    if(!s||!d) continue;
-    const c=connColor(lk.type);
-    const g=document.createElementNS('http://www.w3.org/2000/svg','g');
-    // Shadow
-    const ps=document.createElementNS('http://www.w3.org/2000/svg','path');
-    ps.setAttribute('fill','none');ps.setAttribute('stroke','rgba(0,0,0,.12)');ps.setAttribute('stroke-width','4');
-    ps.setAttribute('d',pathD(s,d));
-    // Line
-    const pl=document.createElementNS('http://www.w3.org/2000/svg','path');
-    pl.setAttribute('fill','none');pl.setAttribute('stroke',c);pl.setAttribute('stroke-width','2.2');
-    pl.setAttribute('stroke-opacity','0.85');pl.setAttribute('d',pathD(s,d));
-    pl.setAttribute('marker-end','url(#arr-'+(lk.type||'default')+')');
+    const s=slotPos(lk.srcNode,lk.srcSlot,'out');const d=slotPos(lk.dstNode,lk.dstSlot,'in');if(!s||!d) continue;
+    const c=connColor(lk.type);const g=document.createElementNS('http://www.w3.org/2000/svg','g');
+    const ps=document.createElementNS('http://www.w3.org/2000/svg','path');ps.setAttribute('fill','none');ps.setAttribute('stroke','rgba(0,0,0,.12)');ps.setAttribute('stroke-width','4');ps.setAttribute('d',pathD(s,d));
+    const pl=document.createElementNS('http://www.w3.org/2000/svg','path');pl.setAttribute('fill','none');pl.setAttribute('stroke',c);pl.setAttribute('stroke-width','2.2');pl.setAttribute('stroke-opacity','0.85');pl.setAttribute('d',pathD(s,d));pl.setAttribute('marker-end','url(#arr-'+(lk.type||'default')+')');
     g.appendChild(ps);g.appendChild(pl);svg.appendChild(g);
   }
 }
-
 function pathD(s,d){
   const{x:x1,y:y1}=s,{x:x2,y:y2}=d;
   if(CS.lineStyle==='straight') return `M${x1} ${y1} L${x2} ${y2}`;
   if(CS.lineStyle==='step'){const mx=(x1+x2)/2;return `M${x1} ${y1} L${mx} ${y1} L${mx} ${y2} L${x2} ${y2}`;}
-  const dx=Math.max(Math.abs(x2-x1)*.45,60);
-  return `M${x1} ${y1} C${x1+dx} ${y1},${x2-dx} ${y2},${x2} ${y2}`;
+  const dx=Math.max(Math.abs(x2-x1)*.45,60);return `M${x1} ${y1} C${x1+dx} ${y1},${x2-dx} ${y2},${x2} ${y2}`;
 }
-
-function updTrans(){
-  if(!CS.world) return;
-  CS.world.style.transform=`translate(${CS.ox}px,${CS.oy}px) scale(${CS.scale})`;
-  const zi=document.getElementById('zi');if(zi) zi.textContent=`缩放 ${Math.round(CS.scale*100)}%`;
-}
-
+function updTrans(){if(!CS.world) return;CS.world.style.transform=`translate(${CS.ox}px,${CS.oy}px) scale(${CS.scale})`;const zi=document.getElementById('zi');if(zi) zi.textContent=`缩放 ${Math.round(CS.scale*100)}%`;}
 function resetView(){CS.scale=1;CS.ox=0;CS.oy=0;updTrans();drawConns();}
-
 function fitView(){
   if(!CS.nodes.length||!CS.vp) return;
   let mnx=Infinity,mny=Infinity,mxx=-Infinity,mxy=-Infinity;
-  for(const n of CS.nodes){
-    const e=document.getElementById('cfn-'+n.id);
-    const w=e?e.offsetWidth:250,hh=e?e.offsetHeight:200;
-    mnx=Math.min(mnx,n.pos[0]);mny=Math.min(mny,n.pos[1]);
-    mxx=Math.max(mxx,n.pos[0]+w);mxy=Math.max(mxy,n.pos[1]+hh);
-  }
-  const vw=CS.vp.offsetWidth,vh=CS.vp.offsetHeight;
-  const cw=mxx-mnx+80,ch=mxy-mny+80;
-  CS.scale=Math.min(vw/cw,vh/ch,1.2);
-  CS.ox=(vw-cw*CS.scale)/2-mnx*CS.scale+40;
-  CS.oy=(vh-ch*CS.scale)/2-mny*CS.scale+40;
+  for(const n of CS.nodes){const e=document.getElementById('cfn-'+n.id);const w=e?e.offsetWidth:250,hh=e?e.offsetHeight:200;mnx=Math.min(mnx,n.pos[0]);mny=Math.min(mny,n.pos[1]);mxx=Math.max(mxx,n.pos[0]+w);mxy=Math.max(mxy,n.pos[1]+hh);}
+  const vw=CS.vp.offsetWidth,vh=CS.vp.offsetHeight;const cw=mxx-mnx+80,ch=mxy-mny+80;
+  CS.scale=Math.min(vw/cw,vh/ch,1.2);CS.ox=(vw-cw*CS.scale)/2-mnx*CS.scale+40;CS.oy=(vh-ch*CS.scale)/2-mny*CS.scale+40;
   updTrans();setTimeout(drawConns,60);
 }
-
-function setLine(s){
-  CS.lineStyle=s;
-  ['bezier','straight','step'].forEach(x=>{const b=document.getElementById('btn-'+x);if(b) b.classList.toggle('act',x===s)});
-  drawConns();
-}
-
+function setLine(s){CS.lineStyle=s;['bezier','straight','step'].forEach(x=>{const b=document.getElementById('btn-'+x);if(b) b.classList.toggle('act',x===s)});drawConns();}
 function setupCanvas(){
   const vp=CS.vp;if(!vp) return;
   let panStart={},nodeDrag=null,ndStart={};
   vp.addEventListener('mousedown',e=>{
     if(e.button!==0) return;
     const nh=e.target.closest('.nhead');
-    if(nh){
-      const nid=nh.dataset.nid;
-      const node=CS.nodes.find(n=>n.id===String(nid));
-      if(node){nodeDrag=node;ndStart={mx:e.clientX,my:e.clientY,nx:node.pos[0],ny:node.pos[1]};e.stopPropagation();return;}
-    }
-    if(!e.target.closest('.cfnode')){
-      CS.panning=true;panStart={mx:e.clientX,my:e.clientY,ox:CS.ox,oy:CS.oy};
-      e.preventDefault();
-    }
+    if(nh){const nid=nh.dataset.nid;const node=CS.nodes.find(n=>n.id===String(nid));if(node){nodeDrag=node;ndStart={mx:e.clientX,my:e.clientY,nx:node.pos[0],ny:node.pos[1]};e.stopPropagation();return;}}
+    if(!e.target.closest('.cfnode')){CS.panning=true;panStart={mx:e.clientX,my:e.clientY,ox:CS.ox,oy:CS.oy};e.preventDefault();}
   });
   document.addEventListener('mousemove',e=>{
-    if(CS.panning){
-      CS.ox=panStart.ox+(e.clientX-panStart.mx);
-      CS.oy=panStart.oy+(e.clientY-panStart.my);
-      updTrans();
-    }
-    if(nodeDrag){
-      const dx=(e.clientX-ndStart.mx)/CS.scale,dy=(e.clientY-ndStart.my)/CS.scale;
-      nodeDrag.pos=[ndStart.nx+dx,ndStart.ny+dy];
-      const ne=document.getElementById('cfn-'+nodeDrag.id);
-      if(ne){ne.style.left=nodeDrag.pos[0]+'px';ne.style.top=nodeDrag.pos[1]+'px';}
-      drawConns();
-    }
+    if(CS.panning){CS.ox=panStart.ox+(e.clientX-panStart.mx);CS.oy=panStart.oy+(e.clientY-panStart.my);updTrans();}
+    if(nodeDrag){const dx=(e.clientX-ndStart.mx)/CS.scale,dy=(e.clientY-ndStart.my)/CS.scale;nodeDrag.pos=[ndStart.nx+dx,ndStart.ny+dy];const ne=document.getElementById('cfn-'+nodeDrag.id);if(ne){ne.style.left=nodeDrag.pos[0]+'px';ne.style.top=nodeDrag.pos[1]+'px';}drawConns();}
   });
   document.addEventListener('mouseup',()=>{CS.panning=false;nodeDrag=null;});
-  // Touch support
   let lt=null;
   vp.addEventListener('touchstart',e=>{
-    if(e.touches.length===1){
-      const t=e.touches[0];
-      const nh=e.target.closest('.nhead');
-      if(nh){const nid=nh.dataset.nid;const node=CS.nodes.find(n=>n.id===String(nid));if(node){nodeDrag=node;ndStart={mx:t.clientX,my:t.clientY,nx:node.pos[0],ny:node.pos[1]};e.preventDefault();return;}}
-      CS.panning=true;panStart={mx:t.clientX,my:t.clientY,ox:CS.ox,oy:CS.oy};e.preventDefault();
-    }
+    if(e.touches.length===1){const t=e.touches[0];const nh=e.target.closest('.nhead');if(nh){const nid=nh.dataset.nid;const node=CS.nodes.find(n=>n.id===String(nid));if(node){nodeDrag=node;ndStart={mx:t.clientX,my:t.clientY,nx:node.pos[0],ny:node.pos[1]};e.preventDefault();return;}}CS.panning=true;panStart={mx:t.clientX,my:t.clientY,ox:CS.ox,oy:CS.oy};e.preventDefault();}
     lt=e.touches.length===2?{d:Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY),s:CS.scale}:null;
   },{passive:false});
   vp.addEventListener('touchmove',e=>{
-    if(e.touches.length===2&&lt){
-      const nd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
-      CS.scale=Math.max(0.15,Math.min(3,lt.s*(nd/lt.d)));updTrans();drawConns();e.preventDefault();return;
-    }
-    if(e.touches.length===1){
-      const t=e.touches[0];
-      if(CS.panning){CS.ox=panStart.ox+(t.clientX-panStart.mx);CS.oy=panStart.oy+(t.clientY-panStart.my);updTrans();}
-      if(nodeDrag){const dx=(t.clientX-ndStart.mx)/CS.scale,dy=(t.clientY-ndStart.my)/CS.scale;nodeDrag.pos=[ndStart.nx+dx,ndStart.ny+dy];const ne=document.getElementById('cfn-'+nodeDrag.id);if(ne){ne.style.left=nodeDrag.pos[0]+'px';ne.style.top=nodeDrag.pos[1]+'px';}drawConns();}
-      e.preventDefault();
-    }
+    if(e.touches.length===2&&lt){const nd=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);CS.scale=Math.max(0.15,Math.min(3,lt.s*(nd/lt.d)));updTrans();drawConns();e.preventDefault();return;}
+    if(e.touches.length===1){const t=e.touches[0];if(CS.panning){CS.ox=panStart.ox+(t.clientX-panStart.mx);CS.oy=panStart.oy+(t.clientY-panStart.my);updTrans();}if(nodeDrag){const dx=(t.clientX-ndStart.mx)/CS.scale,dy=(t.clientY-ndStart.my)/CS.scale;nodeDrag.pos=[ndStart.nx+dx,ndStart.ny+dy];const ne=document.getElementById('cfn-'+nodeDrag.id);if(ne){ne.style.left=nodeDrag.pos[0]+'px';ne.style.top=nodeDrag.pos[1]+'px';}drawConns();}e.preventDefault();}
   },{passive:false});
   vp.addEventListener('touchend',()=>{CS.panning=false;nodeDrag=null;lt=null;});
   vp.addEventListener('wheel',e=>{
-    e.preventDefault();
-    const d=e.deltaY>0?0.88:1.12;
-    const r=vp.getBoundingClientRect();
-    const mx=e.clientX-r.left,my=e.clientY-r.top;
-    const wx=(mx-CS.ox)/CS.scale,wy=(my-CS.oy)/CS.scale;
-    CS.scale=Math.max(0.15,Math.min(3,CS.scale*d));
-    CS.ox=mx-wx*CS.scale;CS.oy=my-wy*CS.scale;
-    updTrans();drawConns();
+    e.preventDefault();const d=e.deltaY>0?0.88:1.12;const r=vp.getBoundingClientRect();const mx=e.clientX-r.left,my=e.clientY-r.top;const wx=(mx-CS.ox)/CS.scale,wy=(my-CS.oy)/CS.scale;
+    CS.scale=Math.max(0.15,Math.min(3,CS.scale*d));CS.ox=mx-wx*CS.scale;CS.oy=my-wy*CS.scale;updTrans();drawConns();
   },{passive:false});
+}
+
+// ─── Flat Params Extractor (for comparison) ───────────────────────────────────
+function extractFlatParams(type, parsed, meta){
+  const flat={};
+  if(type==='sdwebui'||type==='novelai'){
+    if(parsed.pos) flat['__pos__']=parsed.pos;
+    if(parsed.neg) flat['__neg__']=parsed.neg;
+    for(const {k,v} of parsed.params) flat[k]=v;
+  } else if(type==='comfyui'){
+    // Flatten key nodes' params
+    for(const n of (parsed.nodes||[])){
+      for(const {k,v} of (n.params||[])){
+        const fk=`${n.title||n.type}::${k}`;flat[fk]=v;
+      }
+    }
+  } else {
+    for(const [k,v] of Object.entries(meta)) flat[k]=v;
+  }
+  return flat;
+}
+
+// ─── Comparison Renderer ─────────────────────────────────────────────────────
+function renderComparison(){
+  const res=document.getElementById('result');
+  const rc=document.getElementById('rc');
+  res.classList.add('on');
+  rc.innerHTML='';
+
+  if(!compareQueue.length){res.classList.remove('on');return;}
+
+  // Check type consistency
+  const types=new Set(compareQueue.map(e=>e.type));
+  const mixedWarning=types.size>1?`<div class="error" style="margin-bottom:14px">⚠️ 检测到不同格式图片（${[...types].join(', ')}），对比结果可能不准确。建议上传同类型图片。</div>`:'';
+
+  // Build flat params for each file
+  const allFlat=compareQueue.map(e=>extractFlatParams(e.type,e.parsed,e.meta));
+
+  // Collect all keys (preserve order: pos, neg, then other)
+  const keyOrder=[];const keySeen=new Set();
+  for(const flat of allFlat){
+    for(const k of Object.keys(flat)){if(!keySeen.has(k)){keySeen.add(k);keyOrder.push(k);}}
+  }
+
+  // Find differing keys
+  const diffKeys=new Set();
+  for(const k of keyOrder){
+    const vals=allFlat.map(f=>f[k]??null);
+    const uniq=new Set(vals.filter(v=>v!==null));
+    if(uniq.size>1) diffKeys.add(k);
+  }
+
+  const typeLabel={sdwebui:'SD WebUI',comfyui:'ComfyUI',novelai:'NovelAI',unknown:'Unknown'};
+  const typeCls={sdwebui:'sd',comfyui:'cf',novelai:'nai',unknown:'uk'};
+
+  // Header
+  const hdr=document.createElement('div');
+  hdr.className='cmp-header';
+  hdr.innerHTML=`
+    <div>
+      <h3>⚖️ 多图参数对比</h3>
+      <span class="cmp-subtext">${compareQueue.length} 张图片 · <span style="color:var(--diff-border);font-weight:800">${diffKeys.size} 个差异参数</span> · ${keyOrder.length} 个参数总计</span>
+    </div>
+    <button class="cmp-dl" onclick="downloadAllJSON()">⬇ 下载全部 JSON</button>
+    <button class="cmp-clear" onclick="clearCompare()">✕ 清除</button>`;
+  rc.appendChild(hdr);
+
+  if(mixedWarning){const w=document.createElement('div');w.innerHTML=mixedWarning;rc.appendChild(w.firstElementChild);}
+
+  // Table
+  const wrap=document.createElement('div');wrap.className='cmp-wrap';
+  const scroll=document.createElement('div');scroll.className='cmp-scroll';
+
+  let th=`<table class="cmp-table"><thead><tr><th><div class="cmp-th-inner"><span style="font-size:11px;color:var(--text-muted)">参数</span></div></th>`;
+  for(const entry of compareQueue){
+    th+=`<th><div class="cmp-th-inner">
+      <img src="${entry.imgURL}" class="cmp-thumb" alt="">
+      <span class="cmp-fname" title="${esc(entry.file.name)}">${esc(entry.file.name)}</span>
+      <span class="cmp-ftype ${typeCls[entry.type]||'uk'}">${typeLabel[entry.type]||'Unknown'}</span>
+    </div></th>`;
+  }
+  th+=`</tr></thead><tbody>`;
+
+  let rows='';
+  for(const k of keyOrder){
+    const vals=allFlat.map(f=>f[k]??null);
+    const isDiff=diffKeys.has(k);
+    const rowCls=isDiff?'diff-row':'';
+    const displayKey=k==='__pos__'?'正向提示词':k==='__neg__'?'负向提示词':esc(k);
+    rows+=`<tr class="${rowCls}">`;
+    rows+=`<td>${displayKey}${isDiff?'<span class="diff-badge">差异</span>':''}</td>`;
+    for(let i=0;i<compareQueue.length;i++){
+      const v=vals[i];
+      const cellDiff=isDiff&&v!==null;
+      const othersNonNull=vals.filter((_,j)=>j!==i&&vals[j]!==null);
+      const uniqueFromOthers=cellDiff&&othersNonNull.length>0;
+      const cellCls=uniqueFromOthers?'diff-cell':'';
+      if(v===null){
+        rows+=`<td class="${cellCls}"><span class="cmp-empty">—</span></td>`;
+      } else {
+        const display=v.length>200?v.slice(0,200)+'…':v;
+        rows+=`<td class="${cellCls}"><div class="cmp-val${cellDiff?' diff':''}">${esc(display)}</div></td>`;
+      }
+    }
+    rows+=`</tr>`;
+  }
+  rows+=`</tbody></table>`;
+
+  scroll.innerHTML=th+rows;
+  wrap.appendChild(scroll);
+
+  if(compareQueue.length<6){
+    const hint=document.createElement('div');hint.className='cmp-add-hint';
+    hint.innerHTML=`📎 可继续上传图片加入对比（当前 ${compareQueue.length}/6 张）`;
+    wrap.appendChild(hint);
+  }
+
+  rc.appendChild(wrap);
+
+  // Per-image JSON download section
+  const dlWrap=document.createElement('div');dlWrap.style.cssText='margin-top:16px;display:flex;gap:10px;flex-wrap:wrap';
+  for(let i=0;i<compareQueue.length;i++){
+    const entry=compareQueue[i];
+    const btn=document.createElement('button');
+    btn.className='dl-btn';
+    btn.innerHTML=`⬇ ${esc(entry.file.name.slice(0,20))} JSON`;
+    btn.onclick=()=>downloadJSON(entry.meta, entry.file.name.replace(/\.[^.]+$/,'')+'.json');
+    dlWrap.appendChild(btn);
+  }
+  rc.appendChild(dlWrap);
+}
+
+function clearCompare(){
+  compareQueue=[];
+  const res=document.getElementById('result');
+  const rc=document.getElementById('rc');
+  res.classList.remove('on');
+  rc.innerHTML='';
+}
+
+function downloadAllJSON(){
+  const obj={};
+  for(const entry of compareQueue){
+    obj[entry.file.name]=entry.meta;
+  }
+  downloadJSON(obj,'compare_metadata.json');
 }
 
 // ─── Main Handler ─────────────────────────────────────────────────────────────
 async function handleFile(file){
-  const res=document.getElementById('result');const rc=document.getElementById('rc');
+  const res=document.getElementById('result');
+  const rc=document.getElementById('rc');
+
+  if(currentMode==='compare'){
+    // In compare mode: accumulate files
+    if(compareQueue.length>=6){showToast('⚠️ 最多支持 6 张图片对比');return;}
+    const meta=await readPNGMeta(file);
+    if(!meta){showToast('⚠️ 无法读取元数据');return;}
+    const type=detectType(meta);
+    let parsed=null;
+    if(type==='sdwebui') parsed=parseSDParams(meta.parameters);
+    else if(type==='novelai') parsed=parseNAI(meta);
+    else if(type==='comfyui') parsed=parseComfyWorkflow(meta.workflow,meta.prompt)||{nodes:[],links:{}};
+    else parsed={params:[]};
+    const imgURL=URL.createObjectURL(file);
+    compareQueue.push({file,meta,type,parsed,imgURL});
+    renderComparison();
+    return;
+  }
+
+  // Single mode
   res.classList.add('on');
   rc.innerHTML=`<div class="loading"><div class="spin"></div> 正在读取图片元数据...</div>`;
   try{
@@ -680,32 +825,33 @@ async function handleFile(file){
     if(!meta){rc.innerHTML=`<div class="error">⚠️ 无法读取元数据，请上传 PNG 格式的 AI 生成图片。</div>`;return;}
     const keys=Object.keys(meta);
     if(!keys.length){rc.innerHTML=`<div class="error">⚠️ 图片中未发现 AI 元数据，可能已被清除或不是 AI 生成图片。</div>`;return;}
-    let type='unknown';
-    if(meta.workflow||(meta.prompt&&!meta.parameters)) type='comfyui';
-    else if(meta.parameters) type='sdwebui';
+
+    const type=detectType(meta);
     const imgURL=URL.createObjectURL(file);
-    const typeLbl={sdwebui:'SD WebUI',comfyui:'ComfyUI',unknown:'未知格式'}[type];
-    const typeCls={sdwebui:'sd',comfyui:'cf',unknown:'uk'}[type];
-    const bar=document.createElement('div');
-    bar.className='infobar';
-    bar.innerHTML=`<img src="${imgURL}" class="prev-img" alt=""><div class="imeta"><h3>${esc(file.name)}</h3><p>${(file.size/1024).toFixed(1)} KB · PNG</p></div><span class="badge ${typeCls}">${typeLbl}</span>`;
+    const typeLabel={sdwebui:'SD WebUI',comfyui:'ComfyUI',novelai:'NovelAI',unknown:'未知格式'};
+    const typeCls={sdwebui:'sd',comfyui:'cf',novelai:'nai',unknown:'uk'};
+
+    const bar=document.createElement('div');bar.className='infobar';
+    bar.innerHTML=`<img src="${imgURL}" class="prev-img" alt=""><div class="imeta"><h3>${esc(file.name)}</h3><p>${(file.size/1024).toFixed(1)} KB · PNG · ${typeLabel[type]||'Unknown'}</p></div><span class="badge ${typeCls[type]||'uk'}">${typeLabel[type]||'Unknown'}</span><button class="dl-btn" onclick='downloadJSON(${JSON.stringify(meta)}, ${JSON.stringify(file.name.replace(/\\.[^.]+$/,"")+".json")})'>⬇ 下载 JSON</button>`;
+
     const main=document.createElement('div');
     rc.innerHTML='';rc.appendChild(bar);rc.appendChild(main);
+
     if(type==='sdwebui'){
       renderSD(parseSDParams(meta.parameters),main);
+    } else if(type==='novelai'){
+      renderNAI(parseNAI(meta),main);
     } else if(type==='comfyui'){
       const parsed=parseComfyWorkflow(meta.workflow,meta.prompt);
       if(parsed&&parsed.nodes.length) renderCF(parsed,main);
       else main.innerHTML=`<div class="error">⚠️ ComfyUI 工作流数据解析失败，格式可能不受支持。</div>`;
     } else {
       let h=`<div class="card"><div class="sec-hd">🔍 发现的元数据字段 (${keys.length})</div><div class="pgrid">`;
-      for(const [k,v] of Object.entries(meta)){
-        h+=`<div class="pitem"><span class="pkey">${esc(k)}</span><span class="pval">${esc(String(v).slice(0,80))}</span><button class="cbtn" onclick="copy(${JSON.stringify(v)},this)">⎘</button></div>`;
-      }
+      for(const [k,v] of Object.entries(meta)){h+=`<div class="pitem"><span class="pkey">${esc(k)}</span><span class="pval">${esc(String(v).slice(0,80))}</span><button class="cbtn" onclick="copy(${JSON.stringify(v)},this)">⎘</button></div>`;}
       h+=`</div></div>`;main.innerHTML=h;
     }
-    const raw=document.createElement('div');
-    raw.className='raw-wrap';
+
+    const raw=document.createElement('div');raw.className='raw-wrap';
     raw.innerHTML=`<button class="raw-tog" onclick="this.nextElementSibling.classList.toggle('on');this.querySelector('span').textContent=this.nextElementSibling.classList.contains('on')?'▼':'▶'"><span>▶</span> 查看原始元数据 JSON</button><div class="raw-body">${esc(JSON.stringify(meta,null,2))}</div>`;
     rc.appendChild(raw);
   } catch(err){
@@ -717,10 +863,18 @@ async function handleFile(file){
 // ─── Event Setup ─────────────────────────────────────────────────────────────
 const wrap=document.getElementById('uploadWrap');
 const fi=document.getElementById('fileInput');
-fi.addEventListener('change',e=>{if(e.target.files[0]) handleFile(e.target.files[0]);});
+fi.addEventListener('change',e=>{
+  const files=Array.from(e.target.files||[]);
+  for(const f of files) handleFile(f);
+  fi.value='';
+});
 wrap.addEventListener('dragover',e=>{e.preventDefault();wrap.classList.add('over');});
 wrap.addEventListener('dragleave',()=>wrap.classList.remove('over'));
-wrap.addEventListener('drop',e=>{e.preventDefault();wrap.classList.remove('over');if(e.dataTransfer.files[0]) handleFile(e.dataTransfer.files[0]);});
+wrap.addEventListener('drop',e=>{
+  e.preventDefault();wrap.classList.remove('over');
+  const files=Array.from(e.dataTransfer.files||[]);
+  for(const f of files) handleFile(f);
+});
 </script>
 </body>
 </html>
