@@ -13,7 +13,7 @@
 
 <p align="center">
   <a href="https://flow.ete.moe">在线体验</a> ·
-  <a href="https://github.com/eastmoe">GitHub</a>
+  <a href="https://github.com/eastmoe/FlowLY">GitHub</a>
 </p>
 
 ---
