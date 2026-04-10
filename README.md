@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./static/logo.svg" alt="FlowLY Logo" width="96" />
+  <img src="./static/logo.png" alt="FlowLY Logo" width="96" />
 </p>
 
 <h1 align="center">FlowLY</h1>
